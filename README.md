@@ -24,11 +24,11 @@ components directory will include all of the React components including the page
 
 Typescript
 - Please look through this forum for tutorials on typescript and for asking questions related to Typescript:
-    https://discord.com/channels/1082086126954758174/1092556971804217365
+    [TS Resource Forum](https://discord.com/channels/1082086126954758174/1092821343600398457)
 
 React
 - T.B.D
 
 Git/Github
 - For now all we have is this message that describes the workflow: 
-    https://discord.com/channels/1082086126954758174/1092556971804217365/1092556971804217365
+    [GIT/GITHUB Workflow Forum](https://discord.com/channels/1082086126954758174/1092556971804217365/1092556971804217365)
