@@ -32,3 +32,27 @@ React
 Git/Github
 - For now all we have is this message that describes the workflow: 
     [GIT/GITHUB Workflow Forum](https://discord.com/channels/1082086126954758174/1092556971804217365/1092556971804217365)
+    
+## Tech Stack
+
+Frontend
+    Platform: Firebase
+    Language: Typescript
+    Framework: React
+    UI Style: Material UI
+    Code Style: Prettier, Eslint
+    Testing: N/A
+    Paradigm: Functional
+    Version Tracking: git, github
+ 
+Backend
+    Platform: Firebase
+    Language: NodeJS
+    Framework: ExpressJS
+    Database: Firebase Realtime Database?
+    Code Style: Prettier, Eslint
+    Testing: ?
+    Paradigm: Functional
+    Version Tracking: git, github
+
+
