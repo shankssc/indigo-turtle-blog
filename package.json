@@ -3,6 +3,13 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/styles": "^5.11.16",
-    "@mui/system": "^5.11.16"
+    "@mui/system": "^5.11.16",
+    "@types/express-handlebars": "^6.0.0",
+    "@types/express-session": "^1.17.7",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.4",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }

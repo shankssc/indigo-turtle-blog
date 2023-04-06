@@ -35,7 +35,7 @@ export const RegisterForm: React.FC<Props> = ({ onSubmit}) => {
             <StyledCardHeader title="Sign Up" />
             <StyledText theme={theme}>Already a User? Sign In</StyledText>
             <StyledForm>  
-              <Form>
+              
                 <div>
                   <Field 
                     name="username" 
@@ -77,7 +77,7 @@ export const RegisterForm: React.FC<Props> = ({ onSubmit}) => {
                 </div>
 
                 
-              </Form>
+              
               </StyledForm>  
             </MuiCard>
             

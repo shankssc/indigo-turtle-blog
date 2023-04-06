@@ -12,6 +12,7 @@ export const Root = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  
 `;
 
 export const Form = styled(FormikForm)`
@@ -32,6 +33,8 @@ export const StyledTextField = styled(TextField)<{ theme: Theme }> `
     margin-bottom: ${({ theme }) => theme.spacing(2)};
     background-color: #B1E723;
     border-radius: 15px;
+    width: 300px;
+    outline: none !important;
   }
 `;
 
@@ -40,7 +43,7 @@ export const StyledButton = styled(Button)<{ theme: Theme }> `
     margin-top: ${({ theme }) => theme.spacing(3)};
     margin-bottom: ${({ theme }) => theme.spacing(3)};
     background-color: #1E1E1E;
-    width: 100%;
+    width: 300px;
     border-radius: 15px;
     font-size: 20px;
     font-color: FFFFFF
@@ -58,8 +61,8 @@ export const Card = styled(MuiCard)`
 export const StyledText = styled(Link)<{ theme: Theme }>`
 && {
   text-align: center;
-  margin-top: ${({ theme }) => theme.spacing(2)};
-  margin-bottom: ${({ theme }) => theme.spacing(2)};
+  margin-top: ${({ theme }) => theme.spacing(3)};
+  margin-bottom: ${({ theme }) => theme.spacing(3)};
   color: #FFFFFF;
   font-size: 15px;
 }
