@@ -34,7 +34,7 @@ Git/Github
     [GIT/GITHUB Workflow Forum](https://discord.com/channels/1082086126954758174/1092556971804217365/1092556971804217365)
     
 ## Tech Stack
-
+```
 Frontend
     Platform: Firebase
     Language: Typescript
@@ -54,5 +54,5 @@ Backend
     Testing: ?
     Paradigm: Functional
     Version Tracking: git, github
-
+```
 
