@@ -4,21 +4,35 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon --exec ts-node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
     "@types/passport": "^1.0.12",
     "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.4",
     "express-session": "^1.17.3",
     "firebase": "^9.19.1",
     "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.2.1",
     "passport": "^0.6.0",
     "passport-firebase": "^1.2.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/express-handlebars": "^6.0.0",
+    "@types/passport-local": "^1.0.35",
+    "typescript": "^5.0.4"
   }
 }

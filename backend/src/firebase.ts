@@ -15,7 +15,7 @@ const firebaseConfig = {
   };
 
   export const dbapp = initializeApp(firebaseConfig);
-  export const analytics = getAnalytics(dbapp);
+  //export const analytics = getAnalytics(dbapp);
   export const auth = getAuth(dbapp);
   export const db = getDatabase(dbapp);
   // Initialize Realtime Database and get a reference to the service

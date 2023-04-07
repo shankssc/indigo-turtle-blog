@@ -31,7 +31,7 @@ export const StyledCardHeader = styled(CardHeader)({
 export const StyledTextField = styled(TextField)<{ theme: Theme }> `
   && {
     margin-bottom: ${({ theme }) => theme.spacing(2)};
-    background-color: #B1E723;
+    background-color: #18B467;
     border-radius: 15px;
     width: 300px;
     outline: none !important;
@@ -53,7 +53,7 @@ export const StyledButton = styled(Button)<{ theme: Theme }> `
 
 export const Card = styled(MuiCard)`
   border-radius: 40px;
-  background-color: #8BB61E;
+  background-color: #39E399;
   padding: 3px;
   width: 400px;
 `;
