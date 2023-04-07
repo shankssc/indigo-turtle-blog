@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDY1Pbm1UNL7KYXdfQZi80KEsAQ0dV8sfk",
@@ -13,10 +14,10 @@ const firebaseConfig = {
     databaseURL: "https://indigo-turtle-blog-default-rtdb.firebaseio.com"
   };
 
-  const dbapp = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(dbapp);
-
-  export default dbapp;
+  export const dbapp = initializeApp(firebaseConfig);
+  export const analytics = getAnalytics(dbapp);
+  export const auth = getAuth(dbapp);
+  export const db = getDatabase(dbapp);
   // Initialize Realtime Database and get a reference to the service
   //const database = getDatabase(dbapp);
 
