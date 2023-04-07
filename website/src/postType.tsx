@@ -11,10 +11,9 @@ export interface Post {
 
 // Example
 // const post: Post = {
-//     author: 'justin',
+//     author: 'Justin',
 //     title: "My title",
-//     content: "Check",
+//     content: "This is my content",
 //     date: new Date(),
 //     tags: ["hello","test"]
-
 // }
