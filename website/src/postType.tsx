@@ -3,7 +3,6 @@ export interface Post {
     author: string;
     title: string;
     content: string;
-    // Current UTC Date
     date: Date;
     tags: string[];
 }
