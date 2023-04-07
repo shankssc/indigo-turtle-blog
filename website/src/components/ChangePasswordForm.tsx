@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
+import { Popup } from "./Popup";
+
 function ChangePasswordForm(): JSX.Element {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -27,7 +29,7 @@ function ChangePasswordForm(): JSX.Element {
         });
     }
   };
-  return (
+  return Popup(
     <div className="formContainer">
       Change your password
       <form
@@ -42,6 +44,7 @@ function ChangePasswordForm(): JSX.Element {
           id="currentPassword"
           name="currentPassword"
           value={currentPassword}
+          minLength={6}
           onChange={(e) => setCurrentPassword(e.target.value)}
           required
         />
@@ -52,6 +55,7 @@ function ChangePasswordForm(): JSX.Element {
           id="newPassword"
           name="newPassword"
           value={newPassword}
+          minLength={6}
           onChange={(e) => setNewPassword(e.target.value)}
           required
         />
@@ -61,6 +65,7 @@ function ChangePasswordForm(): JSX.Element {
           id="confirmPassword"
           name="confirmPassword"
           value={confirmPassword}
+          minLength={6}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
@@ -69,7 +74,8 @@ function ChangePasswordForm(): JSX.Element {
 
         <input className="btn" type="submit" value="Submit" />
       </form>
-    </div>
+    </div>,
+    "Change Password"
   );
 }
 

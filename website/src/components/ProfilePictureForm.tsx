@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
+import { Popup } from "./Popup";
 
 function ProfilePictureForm(): JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File>();
   const [fileError, setFileError] = useState("");
 
+  // validates the selected file to ensure it's an image and limtis size
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target?.files?.[0];
     if (file != null) {
@@ -20,6 +22,7 @@ function ProfilePictureForm(): JSX.Element {
     }
   };
 
+  // sends API request with profile picture
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     axios
@@ -32,8 +35,8 @@ function ProfilePictureForm(): JSX.Element {
         setFileError("An error occurred while changing profile pictures.");
       });
   };
-
-  return (
+  // uses the popup component
+  return Popup(
     <div>
       <form
         onSubmit={handleSubmit}
@@ -52,7 +55,8 @@ function ProfilePictureForm(): JSX.Element {
         <span style={{ color: "red" }}>{fileError}</span>
         <input className="btn" type="submit" value="Upload" />
       </form>
-    </div>
+    </div>,
+    "Change Profile Picture"
   );
 }
 
