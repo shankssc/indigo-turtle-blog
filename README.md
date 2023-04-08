@@ -10,7 +10,8 @@ However, the more we do these kind of things, we more we will feel used to it an
 ### Website directory:
 - package.json, .gitignore, tsconfig and other various config files.
 - src directory
-  - components directory
+  - components directory (all of the react components will be stored here)
+  - utils directory (all of the helper functions will be stored here)
   - App.tsx (App.tsx will load the components from the components directory)
   - index.tsx (this is our starting point in our website-code, index.tsx will call App.tsx)
 
