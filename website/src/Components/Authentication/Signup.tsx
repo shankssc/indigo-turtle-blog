@@ -18,7 +18,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
 
   const onSubmit = async (values: Values): Promise<void> => {
     try {
-      const response = await axios.post("http://localhost:3000/register", {
+      const response = await axios.post("http://localhost:4000/register", {
         username: values.username,
         email: values.email,
         password: values.password,
