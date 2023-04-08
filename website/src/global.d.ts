@@ -1,5 +1,5 @@
 
-export interface Post {
+interface Post {
     author: string;
     title: string;
     content: string;
@@ -8,7 +8,7 @@ export interface Post {
 }
 
 
-// Example
+// Example of how to implement interface
 // const post: Post = {
 //     author: 'Justin',
 //     title: "My title",
