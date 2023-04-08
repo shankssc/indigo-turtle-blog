@@ -4,7 +4,8 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
 import { User, verifyUser,createUser,getUserById, getUserByUsername } from './models/user';
-import { Strategy as LocalStrategy } from 'passport-local';
+//import { Strategy as LocalStrategy } from 'passport-local';
+import passportlocal from 'passport-local';
 import * as bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -20,6 +21,8 @@ const sessionOptions: SessionOptions = {
   saveUninitialized: false
 };
 
+const LocalStrategy = passportlocal.Strategy
+
 app.use(session(sessionOptions));
 
 app.use(cookieParser());
@@ -28,15 +31,55 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new LocalStrategy( async (username:string,password:string,done) => {
+  const user = await getUserByUsername(username);
+
+  if (!user) {
+    return done(null,{message:'Invalid username'});
+  }
+
+  try {
+    const matchRes = await bcrypt.compare(password, user.password);
+
+    if (matchRes) {
+      return done(null, user);
+    } else {
+      return done(null, {message: 'Invalid password'});
+    }
+  } catch (error) {
+    return done(error);
+  }
+  }
+  ))
+
+  passport.serializeUser((user:any, done) => {
+    done(null, user.uid);
+  });
+  
+  passport.deserializeUser(async (uid:string,done) => {
+    const user = await getUserById(uid);
+  
+    if (user) {
+      return done(null,user);
+    }
+  
+    return done(null,{message: 'User not found'});
+  });
+
 //Routes
 // POST API endpoint to add a new user
 app.get('/', (req, res) => {
   res.send('Welcome');
 });
 
-app.post('/register', async (req, res) => {
+app.post('/register', async (req: Request, res: Response) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password } = req?.body;
+
+    if (!username || !password || typeof username !== "string" || typeof password !== "string") {
+      res.send("Please enter correct value types");
+      return;
+    }
 
     // Create a new user object
     const newUser = { username, email, password };
@@ -49,6 +92,15 @@ app.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Failed to create user' });
   }
 });
+
+
+app.post('/login', passport.authenticate("local", (req: Request,res: Response) => {
+    res.send("Successfully authenticated");
+}));
+
+app.get('/user', (req: Request, res: Response) => {
+  res.send(req.user);
+})
 
 app.listen(4000, () => {
   console.log('Server started successfully');

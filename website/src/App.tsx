@@ -1,11 +1,16 @@
 import React from 'react';
 import { RegisterForm } from 'Components/Authentication/Signup';
 import { AuthForm } from 'Components/Authentication/Signin';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 function App(): JSX.Element {
   return (
-    <div className="App" style={{ backgroundColor: '#6500B0' }}>
-      <AuthForm onSubmit={() => {}}/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+      <Route path='/register' element={<RegisterForm />}></Route>
+      <Route path='/login' element={<AuthForm />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
