@@ -1,7 +1,7 @@
 import express, {Request,Response} from 'express';
 import session, { SessionOptions } from 'express-session';
 import exphbs from 'express-handlebars';
-import * as passport from 'passport';
+import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
 import { User, verifyUser,createUser,getUserById, getUserByUsername } from './models/user';
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -30,7 +30,11 @@ app.use(passport.session());
 
 //Routes
 // POST API endpoint to add a new user
-app.post('/users', async (req, res) => {
+app.get('/', (req, res) => {
+  res.send('Welcome');
+});
+
+app.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -39,12 +43,15 @@ app.post('/users', async (req, res) => {
 
     // Add the new user to the database
     await createUser(newUser);
-
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to create user' });
   }
+});
+
+app.listen(4000, () => {
+  console.log('Server started successfully');
 });
 
 /*

@@ -3,7 +3,6 @@ import * as bcrypt from 'bcrypt';
 import {auth as authInstance, db as database} from '../firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {dbapp} from '../firebase';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface User {
     uid?: string;
