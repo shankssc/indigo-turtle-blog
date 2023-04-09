@@ -3,7 +3,7 @@ import session, { SessionOptions } from 'express-session';
 import exphbs from 'express-handlebars';
 import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
-import { User, verifyUser,createUser,getUserById, getUserByUsername } from './models/user';
+import { User,createUser,getUserById, getUserByUsername } from './models/user';
 //import { Strategy as LocalStrategy } from 'passport-local';
 import passportlocal from 'passport-local';
 import * as bcrypt from 'bcrypt';
@@ -21,7 +21,7 @@ const sessionOptions: SessionOptions = {
   saveUninitialized: false
 };
 
-const LocalStrategy = passportlocal.Strategy
+const LocalStrategy = passportlocal.Strategy;
 
 app.use(session(sessionOptions));
 
@@ -31,9 +31,9 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(async (username, password, done) => {
+passport.use(new LocalStrategy(async (username: string, password: string, done: any) => {
   const user = await getUserByUsername(username);
-
+  
   if (!user) {
     return done(null, false, { message: 'Invalid username' });
   }
@@ -51,8 +51,8 @@ passport.use(new LocalStrategy(async (username, password, done) => {
   }
 }));
 
-  passport.serializeUser((user:any, done) => {
-    done(null, user.uid);
+  passport.serializeUser((user:User, done) => {
+    done(null, user);
   });
   
   passport.deserializeUser(async (uid:string,done) => {

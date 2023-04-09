@@ -15,7 +15,7 @@ interface Values {
 const theme = createTheme(); // create a default theme object
 
 export const RegisterForm: React.FC = (): JSX.Element => {
-
+  /*
   const onSubmit = async (values: Values): Promise<void> => {
     try {
       const response = await axios.post("http://localhost:4000/register", {
@@ -29,6 +29,25 @@ export const RegisterForm: React.FC = (): JSX.Element => {
       console.error(error);
     }
   }
+  */
+
+  const instance = axios.create({
+    baseURL: 'http://localhost:4000',
+    withCredentials: true,
+  });
+
+  const onSubmit = async (values: Values): Promise<void> => {
+    try {
+      const response = await instance.post("/register", {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>

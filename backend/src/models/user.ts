@@ -1,4 +1,4 @@
-import { getDatabase, ref, push,set,get, query, orderByChild, limitToFirst, equalTo} from "firebase/database";
+import { getDatabase, ref, push,set,get, update, query, orderByChild, limitToFirst, equalTo} from "firebase/database";
 import * as bcrypt from 'bcrypt';
 import {auth as authInstance, db as database} from '../firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -27,7 +27,7 @@ export const createUser = async (user: User): Promise<void> => {
     password: hashedPassword
     };
   
-    await set(userRef, newUser);
+    await update(newUserRef, newUser);
  
 }
 
@@ -91,18 +91,17 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
 */
 export const getUserByUsername = async (username: string): Promise<User | null> => {
   const db = getDatabase(dbapp);
-  //const db = database;
   const usersRef = ref(db, 'users');
-  const usernameRef = usersRef + '/' + 'username';
-  const queryConstraints = [equalTo(usernameRef, username)];
+  const queryConstraints = [orderByChild('username'), equalTo(username)];
   const q = query(usersRef, ...queryConstraints);
   const snapshot = await get(q);
+  //console.log('snapshot:', snapshot.val());
 
   if (!snapshot.exists()) {
     return null;
   }
-
-  const userData = snapshot.val();
+  
+  const userData = Object.values(snapshot.val())[0] as User;
 
   const user = {
     uid: userData.uid,
@@ -111,9 +110,10 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
     password: userData.password
   }
 
-  return userData;
+  return user;
 }
 
+/*
 export const verifyUser = async (username: string, password: string, done: any): Promise<User | null> => {
   const auth = authInstance;
 
@@ -133,7 +133,7 @@ export const verifyUser = async (username: string, password: string, done: any):
         username: user.username,
         email: user.email,
         password: user.password,
-      });*/
+      });
       return done(null, user);
     } else {
       return done(null, false, { message: 'Invalid user' });
@@ -142,4 +142,5 @@ export const verifyUser = async (username: string, password: string, done: any):
     console.error(error);
     return done(error);
   }
-}
+}*/
+
