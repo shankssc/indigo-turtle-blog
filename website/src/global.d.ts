@@ -1,5 +1,6 @@
 interface Post {
   author: string;
+  uid: string;
   title: string;
   content: string;
   date: {
