@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from '@mui/material';
+// import { Card, Row, Item } from '@mui/material';
 
 import { fetchPosts } from 'utils/fetchPosts';
 
-// const createPost = () => {};
+const createPost = (post: Post): JSX.Element => {
+  return <div></div>;
+};
+
 const emptypost: Post[] = [];
 
 export function PostsPage(): JSX.Element {
