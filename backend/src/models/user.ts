@@ -60,7 +60,7 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
     const user = userObj[uid];
     return { uid, ...user };
 };
-
+/*
 //Retrieve user by username
 export const getUserByUsername = async (username: string): Promise<User | null> => {
   const db = getDatabase(dbapp);
@@ -76,7 +76,7 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
   const uid = Object.keys(userObj)[0];
   const user = userObj[uid];
   return { uid, ...user };
-  */
+  
   if (userObj && typeof userObj === 'object') {
     //const userData = Object.values(userObj)[0];
     const fetched_id = Object.keys(userObj)[0];
@@ -88,7 +88,31 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
 
   return null;
 };
+*/
+export const getUserByUsername = async (username: string): Promise<User | null> => {
+  const db = getDatabase(dbapp);
+  //const db = database;
+  const usersRef = ref(db, 'users');
+  const usernameRef = usersRef + '/' + 'username';
+  const queryConstraints = [equalTo(usernameRef, username)];
+  const q = query(usersRef, ...queryConstraints);
+  const snapshot = await get(q);
 
+  if (!snapshot.exists()) {
+    return null;
+  }
+
+  const userData = snapshot.val();
+
+  const user = {
+    uid: userData.uid,
+    username: userData.username,
+    email: userData.email,
+    password: userData.password
+  }
+
+  return userData;
+}
 
 export const verifyUser = async (username: string, password: string, done: any): Promise<User | null> => {
   const auth = authInstance;

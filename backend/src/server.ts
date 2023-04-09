@@ -31,11 +31,11 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy( async (username:string,password:string,done) => {
+passport.use(new LocalStrategy(async (username, password, done) => {
   const user = await getUserByUsername(username);
 
   if (!user) {
-    return done(null,{message:'Invalid username'});
+    return done(null, false, { message: 'Invalid username' });
   }
 
   try {
@@ -44,13 +44,12 @@ passport.use(new LocalStrategy( async (username:string,password:string,done) => 
     if (matchRes) {
       return done(null, user);
     } else {
-      return done(null, {message: 'Invalid password'});
+      return done(null, false, { message: 'Invalid password' });
     }
   } catch (error) {
     return done(error);
   }
-  }
-  ))
+}));
 
   passport.serializeUser((user:any, done) => {
     done(null, user.uid);
@@ -94,9 +93,9 @@ app.post('/register', async (req: Request, res: Response) => {
 });
 
 
-app.post('/login', passport.authenticate("local", (req: Request,res: Response) => {
+app.post('/login', passport.authenticate("local"), (req: Request,res: Response) => {
     res.send("Successfully authenticated");
-}));
+});
 
 app.get('/user', (req: Request, res: Response) => {
   res.send(req.user);

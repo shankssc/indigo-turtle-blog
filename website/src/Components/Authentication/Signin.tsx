@@ -1,10 +1,9 @@
 import React from 'react';
-import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import { MyField } from './MyField';
 import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledTextField, StyledButton, StyledText } from './Styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 interface Values {
   username: string;
@@ -15,18 +14,22 @@ const theme = createTheme(); // create a default theme object
 
 export const AuthForm: React.FC = (): JSX.Element => {
 
-  const onSubmit = async (values: Values): Promise<void> => {
-    try {
-      const response = await axios.post("http://localhost:3000/login", {
-        username: values.username,
-        password: values.password,
-        withCredentials: true
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const instance = axios.create({
+  baseURL: 'http://localhost:4000',
+  withCredentials: true,
+});
+
+const onSubmit = async (values: Values): Promise<void> => {
+  try {
+    const response = await instance.post("/login", {
+      username: values.username,
+      password: values.password,
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
   }
+};
 
   return (
     <ThemeProvider theme={theme}>
