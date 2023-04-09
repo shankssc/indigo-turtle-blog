@@ -1,6 +1,6 @@
 .container {
   background: #4bb000;
-  height: 600px;
+  padding-bottom: 20px;
   margin: 20px;
   border-radius: 5px;
   display: flex;
@@ -24,11 +24,25 @@ form {
 }
 
 .btn {
-  padding: 15px 50px;
+  padding: 15px 5px;
+  margin: 10px 0;
+  width: 150px;
   border-radius: 5px;
   background: #6500b0;
 }
 
 .btn:hover {
   background: #7a00d6;
+}
+
+.submitBtn {
+  margin: 0 auto;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  background: green;
+  width: 100px;
+  height: 100px;
+  margin: 30px;
 }
