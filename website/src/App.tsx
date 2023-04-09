@@ -6,15 +6,15 @@ import { PostsPage } from 'components/PostsPage';
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+      <Router>
         <Routes>
           <Route path="/" element={<PostsPage />} />{' '}
           {/* TODO: "/" should be routing to AuthPage */}
           <Route path="/account" element={<AccountPage />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
