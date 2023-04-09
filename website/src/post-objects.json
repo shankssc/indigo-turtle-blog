@@ -1,4 +1,5 @@
-[
+{
+  "posts": [
     {
       "author": "TurtlesAreTheBest3324",
       "date": {
@@ -140,4 +141,4 @@
       "tags": ["indigo", "turtle"]
     }
   ]
-  
+}

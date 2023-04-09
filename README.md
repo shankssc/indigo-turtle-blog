@@ -10,7 +10,8 @@ However, the more we do these kind of things, we more we will feel used to it an
 ### Website directory:
 - package.json, .gitignore, tsconfig and other various config files.
 - src directory
-  - components directory
+  - components directory (all of the react components will be stored here)
+  - utils directory (all of the helper functions will be stored here)
   - App.tsx (App.tsx will load the components from the components directory)
   - index.tsx (this is our starting point in our website-code, index.tsx will call App.tsx)
 
@@ -32,3 +33,27 @@ React
 Git/Github
 - For now all we have is this message that describes the workflow: 
     [GIT/GITHUB Workflow Forum](https://discord.com/channels/1082086126954758174/1092556971804217365/1092556971804217365)
+    
+## Tech Stack
+```
+Frontend
+    Platform: Firebase
+    Language: Typescript
+    Framework: React
+    UI Style: Material UI
+    Code Style: Prettier, Eslint
+    Testing: N/A
+    Paradigm: Functional
+    Version Tracking: git, github
+ 
+Backend
+    Platform: Firebase
+    Language: NodeJS
+    Framework: ExpressJS
+    Database: Firebase Realtime Database?
+    Code Style: Prettier, Eslint
+    Testing: ?
+    Paradigm: Functional
+    Version Tracking: git, github
+```
+
