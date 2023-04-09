@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
 import { MyField } from './MyField';
 import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledTextField, StyledButton, StyledText } from './Styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface Values {
   username: string;
@@ -12,9 +13,13 @@ interface Values {
   confirmPassword: string;
 }
 
+
 const theme = createTheme(); // create a default theme object
 
 export const RegisterForm: React.FC = (): JSX.Element => {
+  
+  const navigate = useNavigate();
+  
   /*
   const onSubmit = async (values: Values): Promise<void> => {
     try {
@@ -24,30 +29,33 @@ export const RegisterForm: React.FC = (): JSX.Element => {
         password: values.password,
         withCredentials: true
       });
+
       console.log(response.data);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
   }
   */
-
+  
   const instance = axios.create({
     baseURL: 'http://localhost:4000',
     withCredentials: true,
   });
 
   const onSubmit = async (values: Values): Promise<void> => {
-    try {
-      const response = await instance.post("/register", {
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  try {
+    const response = await instance.post("/register", {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    });
+    console.log(response.data);
+    navigate("/");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <ThemeProvider theme={theme}>
