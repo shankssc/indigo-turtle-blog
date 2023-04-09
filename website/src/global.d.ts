@@ -12,3 +12,12 @@ interface Post {
   };
   tags: string[];
 }
+
+interface DateTime {
+  year: string;
+  month: string;
+  day: string;
+  hr: string;
+  min: string;
+  sec: string;
+}
