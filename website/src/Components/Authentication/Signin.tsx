@@ -62,6 +62,7 @@ const onSubmit = async (values: Values): Promise<void> => {
                     <Field
                       name="username"
                       placeholder="username"
+                      type="text"
                       component={MyField}
                       as={StyledTextField}
                     />
@@ -71,6 +72,7 @@ const onSubmit = async (values: Values): Promise<void> => {
                     <Field
                       name="password"
                       placeholder="password"
+                      type="password"
                       component={MyField}
                       as={StyledTextField}
                     />

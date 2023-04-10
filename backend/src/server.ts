@@ -109,6 +109,12 @@ app.get('/user', (req: Request, res: Response) => {
   res.send(req.user);
 })
 
+app.get('/logout', (req: Request, res: Response) => {
+  req.logout(() => {
+    res.send('success');
+  });
+});
+
 app.post('/createposts', async (req: Request, res: Response) => {
   try {
     const {author, title, content, tags} = req?.body;

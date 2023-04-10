@@ -9,6 +9,7 @@ export default function Context(props: PropsWithChildren<any>): JSX.Element {
     Axios.get("http://localhost:4000/user", { withCredentials: true })
       .then((res: AxiosResponse) => {
         setUser(res.data);
+        console.log("current user is ",res.data);
       })
       .catch((err: Error) => {
         console.error(err);

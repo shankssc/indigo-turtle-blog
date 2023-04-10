@@ -1,4 +1,4 @@
-import { getDatabase, ref, push,set,get, update, remove, query, limitToFirst, equalTo} from "firebase/database";
+import { getDatabase, ref, push,set,get, update, remove, query, limitToFirst, equalTo, child} from "firebase/database";
 import * as bcrypt from 'bcrypt';
 import {auth as authInstance, db as database} from '../firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -61,7 +61,19 @@ export const createPost = async (post: Post): Promise<void> => {
 
 export const deletePost = async (uid: string): Promise<void> => {
     const db = getDatabase(dbapp);
-    const postRef = ref(db, `posts/${uid}`);
-    console.log(postRef);
+    //const postRef = ref(db, `posts/${uid}`);
+    //const postRef = child(ref(db, 'posts'), uid);
+    const postRef = ref(db, 'posts/' + encodeURIComponent(uid));
+
+    console.log(postRef.toString());
     await remove(postRef);
-  }
+}
+
+export const updatePostContent = async (uid: string, content: string): Promise<void> => {
+    const db = getDatabase(dbapp);
+    const postRef = ref(db, `posts/${uid}`);
+  
+    await update(postRef, {
+      content,
+    });
+  };
