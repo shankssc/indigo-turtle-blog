@@ -52,7 +52,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
       password: values.password,
     });
     console.log(response.data);
-    navigate("/");
+    navigate("/login");
   } catch (error) {
     console.error(error);
   }
