@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { MyField } from './MyField';
 import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledTextField, StyledButton, StyledText } from './Styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface Values {
@@ -18,7 +18,8 @@ export const AuthForm: React.FC = (): JSX.Element => {
   const instance = axios.create({
   baseURL: 'http://localhost:4000',
   withCredentials: true,
-});
+  });
+
 
 const onSubmit = async (values: Values): Promise<void> => {
   
@@ -46,9 +47,17 @@ const onSubmit = async (values: Values): Promise<void> => {
           <Root>
             <MuiCard theme={theme}>
               <StyledCardHeader title="Sign In" />
-              <StyledText theme={theme}>Not a User? Sign Up</StyledText>
+              <StyledText theme={theme}>Not a User?{' '}
+  <a
+    onClick={(event) => {
+      event.preventDefault();
+      navigate('/register');
+    }}
+  >
+    Sign Up
+  </a></StyledText>
               <StyledForm>
-                <Form>
+                
                   <div>
                     <Field
                       name="username"
@@ -70,8 +79,6 @@ const onSubmit = async (values: Values): Promise<void> => {
                   <div>
                     <StyledButton theme={theme} type="submit">Log In</StyledButton>
                   </div>
-
-                </Form>
               </StyledForm>
             </MuiCard>
 

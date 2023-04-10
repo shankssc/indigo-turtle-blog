@@ -4,12 +4,13 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
 import { User,createUser,getUserById, getUserByUsername } from './models/user';
-//import { Strategy as LocalStrategy } from 'passport-local';
+import {Post,createPost, deletePost} from './models/post';
 import passportlocal from 'passport-local';
 import * as bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+
 
 const app = express();
 app.use(express.json());
@@ -80,12 +81,19 @@ app.post('/register', async (req: Request, res: Response) => {
       return;
     }
 
-    // Create a new user object
-    const newUser = { username, email, password };
+    const user = await getUserByUsername(username);
 
-    // Add the new user to the database
-    await createUser(newUser);
-    res.status(201).json({ message: 'User created successfully' });
+    if (user) {
+      res.status(409).json({message: 'This username is already taken'});
+      return;
+    } else {
+      // Create a new user object
+      const newUser = { username, email, password };
+
+      // Add the new user to the database
+      await createUser(newUser);
+      res.status(201).json({ message: 'User created successfully' });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to create user' });
@@ -101,9 +109,36 @@ app.get('/user', (req: Request, res: Response) => {
   res.send(req.user);
 })
 
-app.listen(4000, () => {
-  console.log('Server started successfully');
-});
+app.post('/createposts', async (req: Request, res: Response) => {
+  try {
+    const {author, title, content, tags} = req?.body;
+
+    // Create a new user object
+    const newPost = { author, title, content, tags };
+
+    
+    // Add the new user to the database
+    await createPost(newPost);
+    res.status(201).json({ message: 'Post creation successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Post creation failed' });
+  }
+  });
+
+  app.delete('/posts/:postId', async (req, res) => {
+    const postId = req.params.postId;
+    try {
+      await deletePost(postId);
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to delete post' });
+    }
+  });
 
 
+  app.listen(4000, () => {
+    console.log('Server started successfully');
+  });
 

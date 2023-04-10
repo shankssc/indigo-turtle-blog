@@ -5,6 +5,7 @@ import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledText
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { text } from 'stream/consumers';
 
 interface Values {
   username: string;
@@ -17,7 +18,7 @@ interface Values {
 const theme = createTheme(); // create a default theme object
 
 export const RegisterForm: React.FC = (): JSX.Element => {
-  
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   
   /*
@@ -69,12 +70,21 @@ export const RegisterForm: React.FC = (): JSX.Element => {
           <Root>
             <MuiCard theme={theme}>
               <StyledCardHeader title="Sign Up" />
-              <StyledText theme={theme}>Already a User? Sign In</StyledText>
+              <StyledText theme={theme}>Already a User?{' '}
+  <a
+    onClick={(event) => {
+      event.preventDefault();
+      navigate('/login');
+    }}
+  >
+    Sign In
+  </a></StyledText>
               <StyledForm>
                 <div>
                   <Field
                     name="username"
                     placeholder="username"
+                    type="text"
                     component={MyField}
                     as={StyledTextField}
                   />
@@ -84,6 +94,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
                   <Field
                     name="email"
                     placeholder="email"
+                    type="text"
                     component={MyField}
                     as={StyledTextField}
                   />
@@ -93,6 +104,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
                   <Field
                     name="password"
                     placeholder="password"
+                    type="password"
                     component={MyField}
                     as={StyledTextField}
                   />
@@ -102,6 +114,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
                   <Field
                     name="confirmPassword"
                     placeholder="confirmPassword"
+                    type="password"
                     component={MyField}
                     as={StyledTextField}
                   />

@@ -31,7 +31,6 @@ export const createUser = async (user: User): Promise<void> => {
  
 }
 
-
 //Retrieve a user by their id
 export const getUserById = async (uid: string): Promise<User | null> => {
   const db = getDatabase(dbapp);
@@ -60,35 +59,8 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
     const user = userObj[uid];
     return { uid, ...user };
 };
-/*
-//Retrieve user by username
-export const getUserByUsername = async (username: string): Promise<User | null> => {
-  const db = getDatabase(dbapp);
-  //const db = database;
-  const usersRef = ref(db, 'users');
-  const q = query(usersRef, orderByChild('username'), equalTo(username), limitToFirst(1));
-  const querySnapshot = await get(q);
-  const userObj = querySnapshot.val();
-  /*
-  if (!userObj) {
-    return null;
-  }
-  const uid = Object.keys(userObj)[0];
-  const user = userObj[uid];
-  return { uid, ...user };
-  
-  if (userObj && typeof userObj === 'object') {
-    //const userData = Object.values(userObj)[0];
-    const fetched_id = Object.keys(userObj)[0];
-    const userData = userObj[fetched_id];
-    const user: User = { uid:fetched_id, ...userData}
 
-    return user;
-  }
-
-  return null;
-};
-*/
+// Retrieve a user by their username
 export const getUserByUsername = async (username: string): Promise<User | null> => {
   const db = getDatabase(dbapp);
   const usersRef = ref(db, 'users');
@@ -113,34 +85,4 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
   return user;
 }
 
-/*
-export const verifyUser = async (username: string, password: string, done: any): Promise<User | null> => {
-  const auth = authInstance;
-
-  try {
-    const { user: firebaseUser } = await signInWithEmailAndPassword(auth, username, password);
-    if (!firebaseUser) {
-      return done(null, false, { message: 'Invalid credentials' });
-    }
-    const user = await getUserByUsername(username);
-    if (!user || user.password !== password) {
-      return done(null, false, { message: 'Invalid credentials' });
-    }
-    //return done(null, user);
-    if(user.email && user.password) {
-      
-      /*return done(null, {
-        username: user.username,
-        email: user.email,
-        password: user.password,
-      });
-      return done(null, user);
-    } else {
-      return done(null, false, { message: 'Invalid user' });
-    }
-  } catch (error) {
-    console.error(error);
-    return done(error);
-  }
-}*/
 

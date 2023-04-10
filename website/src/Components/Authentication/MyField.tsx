@@ -6,6 +6,6 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export const MyField: React.FC<FieldProps & TextFieldProps> = ({placeholder, field, label}) => {
-    return <StyledTextField theme={theme} variant="outlined" label={label} placeholder={placeholder} {...field}/>
+export const MyField: React.FC<FieldProps & TextFieldProps> = ({placeholder, field, label, type}) => {
+    return <StyledTextField theme={theme} variant="outlined" label={label} placeholder={placeholder} type={type} {...field}/>
 };
