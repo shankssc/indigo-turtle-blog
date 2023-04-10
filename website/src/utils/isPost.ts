@@ -3,7 +3,7 @@ import { z } from 'zod';
 export function isPost(obj: unknown): obj is Post {
   const postSchema = z.object({
     author: z.string(),
-    uid: z.string(),
+    uid: z.string(), // TODO: should also check length of uid in the future
     title: z.string(),
     content: z.string(),
     date: z.object({
