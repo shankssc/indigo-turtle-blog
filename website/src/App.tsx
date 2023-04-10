@@ -1,10 +1,10 @@
 import React,{ useContext } from 'react';
 import { RegisterForm } from 'Components/Authentication/Signup';
-import { AccountPage } from './components/AccountPage';
-import { Home } from './components/index';
+import { AccountPage } from './Components/AccountPage';
+import { Home } from './Components/index'
 import { AuthForm } from 'Components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { PostsPage } from 'components/PostsPage';
+import { PostsPage } from './Components/PostsPage';
 import Context, {myContext} from 'Components/Context';
 
 function App(): JSX.Element {
