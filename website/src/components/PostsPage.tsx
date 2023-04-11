@@ -3,6 +3,31 @@ import React, { useEffect, useState } from 'react';
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#7801b7',
+      main: '#6400b0',
+      dark: '#3900a6',
+      contrastText: '#000000',
+    },
+    secondary: {
+      light: '#339c00',
+      main: '#4cb000',
+      dark: '#5cc00c',
+      contrastText: '#ffffff',
+    },
+  },
+});
 
 /****
  * Create JSX Elements Functions
@@ -14,16 +39,20 @@ const createTag = (tag: string): JSX.Element => {
 
 const createPost = (post: Post): JSX.Element => {
   return (
-    <div
-      className="post"
-      key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
-      onClick={() => console.log('implement')}
-    >
-      <h3 className="post__title">{post.title}</h3>
-      <p className="post__author">By {post.author}</p>
-      <p className="post__date">{dateToString(post.date)}</p>
-      <div className="post__tags">{post.tags.map(createTag)}</div>
-    </div>
+    <Grid item>
+      <Card
+        className="post"
+        key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
+        onClick={handlePostClicked}
+      >
+        <CardContent>
+          <h3 className="post__title">{post.title}</h3>
+          <p className="post__author">By {post.author}</p>
+          <p className="post__date">{dateToString(post.date)}</p>
+          <div className="post__tags">{post.tags.map(createTag)}</div>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
@@ -32,7 +61,11 @@ const createPost = (post: Post): JSX.Element => {
  */
 
 // TODO: DekoMoon
-const handlePostClicked = (): void => {};
+const handlePostClicked = (
+  e: React.MouseEvent<HTMLDivElement, MouseEvent>
+): void => {
+  console.log(e);
+};
 
 // TODO: Reach
 const handleMyPost = (): void => {};
@@ -60,32 +93,48 @@ export function PostsPage(): JSX.Element {
   // TODO: Have useEffect run when the last 5th post is in sight
 
   return (
-    <div className="postspage">
-      <div className="navbar">
-        <img src="" alt="User Image" />
-        <span>{'Username'}</span>
-        <div className="navbar__buttons">
-          <button
-            className="my-posts-button"
-            onClick={(e) => console.log('implement me')}
-          >
-            My Posts
-          </button>
-          <button
-            className="create-post"
-            onClick={(e) => console.log('implement me')}
-          >
-            Create Post
-          </button>
-          <button
-            className="accounts"
-            onClick={(e) => console.log('implement me')}
-          >
-            Accounts
-          </button>
-        </div>
-      </div>
-      <div className="posts">{posts.map(createPost)}</div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Grid className="postspage" direction="row-reverse" container spacing={2}>
+        <Grid item className="navbar" xs>
+          <div></div>
+          <img src="" alt="User Image" />
+          <span>{'Username'}</span>
+          <div className="navbar__buttons">
+            <Button
+              variant="contained"
+              className="my-posts-button"
+              onClick={(e) => console.log('implement me')}
+              color="secondary"
+            >
+              My Posts
+            </Button>
+            <Button
+              variant="contained"
+              className="create-post"
+              onClick={(e) => console.log('implement me')}
+            >
+              Create Post
+            </Button>
+            <Button
+              variant="contained"
+              className="accounts"
+              onClick={(e) => console.log('implement me')}
+            >
+              Accounts
+            </Button>
+          </div>
+        </Grid>
+        <Grid
+          className="posts"
+          xs={10}
+          direction="column"
+          container
+          spacing={2}
+          pt={3}
+        >
+          {posts.map(createPost)}
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   );
 }
