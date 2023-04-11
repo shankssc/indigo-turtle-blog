@@ -20,6 +20,7 @@ export const Form = styled(FormikForm)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: auto;
 `;
 
 export const StyledCardHeader = styled(CardHeader)({

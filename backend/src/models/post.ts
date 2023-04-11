@@ -1,5 +1,4 @@
-import { getDatabase, ref, push,set,get, update, remove, query, limitToFirst, equalTo, child} from "firebase/database";
-import * as bcrypt from 'bcrypt';
+import { getDatabase, ref, onValue,push,set,get, update, remove, query, limitToFirst, equalTo, child} from "firebase/database";
 import {auth as authInstance, db as database} from '../firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {dbapp} from '../firebase';
@@ -57,6 +56,8 @@ export const createPost = async (post: Post): Promise<void> => {
     };
 
     await update(newPostRef, newPost);
+
+    //return newPost;
 }
 
 export const deletePost = async (uid: string): Promise<void> => {
@@ -69,9 +70,43 @@ export const deletePost = async (uid: string): Promise<void> => {
     await remove(postRef);
 }
 
+export const getPost = async (postId: string): Promise<Post | null> => {
+    const db = getDatabase();
+    const postRef = ref(db, `posts/${postId}`);
+    
+    try {
+      const snapshot = await get(postRef);
+      
+      if (snapshot.exists()) {
+        const post = snapshot.val();
+        return { ...post, postId };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+export const isUserAuthorized = (username: string, post: Post): boolean => {
+    return post.author === username;
+
+}
+
+export const getAllPosts = (callback: (posts: any) => void) => {
+  const db = getDatabase(dbapp);
+  const postRef = ref(db, 'posts');
+
+  onValue(postRef, (snapshot) => {
+    const posts = snapshot.val();
+    callback(posts);
+  });
+}
+
 export const updatePostContent = async (uid: string, content: string): Promise<void> => {
     const db = getDatabase(dbapp);
-    const postRef = ref(db, `posts/${uid}`);
+    const postRef = ref(db, 'posts/' + encodeURIComponent(uid));
   
     await update(postRef, {
       content,
