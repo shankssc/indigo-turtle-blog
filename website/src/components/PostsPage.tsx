@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-// import { Card, Row, Item } from '@mui/material';
+import React, { useEffect, useState, useContext } from 'react';
+
+// import { Card, Row, Item } from '@mui/material';  
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
-
+import { Post,DateTime } from 'global';
+import { myContext } from './Context';
 /****
  * Create JSX Elements Functions
  */
@@ -16,7 +18,9 @@ const createPost = (post: Post): JSX.Element => {
   return (
     <div
       className="post"
-      key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
+      // key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
+      // key={`${post.author}, ${post.title}, ${dateToString(post.date as DateTime)}`}
+      key={`${post.author}, ${post.title}, ${dateToString(post.date)}` as string}
       onClick={() => console.log('implement')}
     >
       <h3 className="post__title">{post.title}</h3>
@@ -51,6 +55,9 @@ export function PostsPage(): JSX.Element {
   const emptypost: Post[] = [];
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState(emptypost);
+
+  const ctx = useContext(myContext);
+  console.log(ctx);
 
   useEffect(() => {
     // This function will run when page is first initialized and when pageN is updated

@@ -1,4 +1,4 @@
-interface Post {
+export interface Post {
   author: string;
   uid: string;
   title: string;
