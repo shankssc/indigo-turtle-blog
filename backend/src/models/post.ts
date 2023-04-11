@@ -61,9 +61,10 @@ export const createPost = async (post: Post): Promise<void> => {
 
 export const deletePost = async (uid: string): Promise<void> => {
     const db = getDatabase(dbapp);
-    //const postRef = ref(db, `posts/${uid}`);
+    //const postRef = ref(db, "posts/" + uid);
     //const postRef = child(ref(db, 'posts'), uid);
-    const postRef = ref(db, 'posts/' + encodeURIComponent(uid));
+    console.log('uid is ',uid)
+    const postRef = ref(db, 'posts/' + encodeURIComponent(uid.trim()));
 
     console.log(postRef.toString());
     await remove(postRef);
