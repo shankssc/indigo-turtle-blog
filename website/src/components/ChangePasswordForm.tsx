@@ -72,7 +72,7 @@ function ChangePasswordForm(): JSX.Element {
 
         <span style={{ color: "red" }}>{passwordError}</span>
 
-        <input className="btn" type="submit" value="Submit" />
+        <input className="btn submitBtn" type="submit" value="Submit" />
       </form>
     </div>,
     "Change Password"

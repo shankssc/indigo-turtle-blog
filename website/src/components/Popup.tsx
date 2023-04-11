@@ -2,8 +2,9 @@ import React, { useState } from "react";
 function Popup(content: JSX.Element, btnText: string): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
+    <>
       <button
+        className="btn"
         onClick={(): void => {
           setIsOpen(!isOpen);
         }}
@@ -16,7 +17,7 @@ function Popup(content: JSX.Element, btnText: string): JSX.Element {
           <div> {content} </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 export { Popup };
