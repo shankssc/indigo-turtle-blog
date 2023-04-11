@@ -14,10 +14,10 @@ function App(): JSX.Element {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<AccountPage />} />{' '}
-          {/* TODO: "/" should be routing to AuthPage */}
+          <Route path="/" element={<RegisterForm />} />{' '}
+          {/* TODO: "/" should be routing to Signin or Signup */}
           <Route path="/account" element={<AccountPage />} />
-          <Route path="/PostsPage" element={<PostsPage />} />
+          <Route path="/postspage" element={<PostsPage />} />
           <Route path="/register" element={<RegisterForm />}></Route>
           <Route path="/login" element={<AuthForm />}></Route>
         </Routes>

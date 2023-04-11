@@ -1,10 +1,19 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { MyField } from './MyField';
-import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledTextField, StyledButton, StyledText } from './Styles';
+import {
+  Root,
+  Form as StyledForm,
+  Card as MuiCard,
+  StyledCardHeader,
+  StyledTextField,
+  StyledButton,
+  StyledText,
+} from './Styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 interface Values {
   username: string;
@@ -16,24 +25,22 @@ const theme = createTheme(); // create a default theme object
 export const AuthForm: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const instance = axios.create({
-  baseURL: 'http://localhost:4000',
-  withCredentials: true,
+    baseURL: 'http://localhost:4000',
+    withCredentials: true,
   });
 
-
-const onSubmit = async (values: Values): Promise<void> => {
-  
-  try {
-    const response = await instance.post("/login", {
-      username: values.username,
-      password: values.password,
-    });
-    console.log('Got response:', response.data);
-    navigate("/");
-  } catch (error) {
-    console.error(error);
-  }
-};
+  const onSubmit = async (values: Values): Promise<void> => {
+    try {
+      const response = await instance.post('/login', {
+        username: values.username,
+        password: values.password,
+      });
+      console.log('Got response:', response.data);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -47,43 +54,45 @@ const onSubmit = async (values: Values): Promise<void> => {
           <Root>
             <MuiCard theme={theme}>
               <StyledCardHeader title="Sign In" />
-              <StyledText theme={theme}>Not a User?{' '}
-  <a
-    onClick={(event) => {
-      event.preventDefault();
-      navigate('/register');
-    }}
-  >
-    Sign Up
-  </a></StyledText>
+              <StyledText theme={theme}>
+                Not a User?{' '}
+                <Button
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate('/register');
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </StyledText>
               <StyledForm>
-                
-                  <div>
-                    <Field
-                      name="username"
-                      placeholder="username"
-                      type="text"
-                      component={MyField}
-                      as={StyledTextField}
-                    />
-                  </div>
+                <div>
+                  <Field
+                    name="username"
+                    placeholder="username"
+                    type="text"
+                    component={MyField}
+                    as={StyledTextField}
+                  />
+                </div>
 
-                  <div>
-                    <Field
-                      name="password"
-                      placeholder="password"
-                      type="password"
-                      component={MyField}
-                      as={StyledTextField}
-                    />
-                  </div>
+                <div>
+                  <Field
+                    name="password"
+                    placeholder="password"
+                    type="password"
+                    component={MyField}
+                    as={StyledTextField}
+                  />
+                </div>
 
-                  <div>
-                    <StyledButton theme={theme} type="submit">Log In</StyledButton>
-                  </div>
+                <div>
+                  <StyledButton theme={theme} type="submit">
+                    Log In
+                  </StyledButton>
+                </div>
               </StyledForm>
             </MuiCard>
-
           </Root>
         )}
       </Formik>
