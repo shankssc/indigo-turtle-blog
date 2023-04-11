@@ -11,6 +11,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -84,6 +85,7 @@ export function PostsPage(): JSX.Element {
   const emptypost: Post[] = [];
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState(emptypost);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // This function will run when page is first initialized and when pageN is updated
@@ -111,14 +113,14 @@ export function PostsPage(): JSX.Element {
             <Button
               variant="contained"
               className="create-post"
-              onClick={(e) => console.log('implement me')}
+              onClick={(e) => navigate('create-post')}
             >
               Create Post
             </Button>
             <Button
               variant="contained"
               className="accounts"
-              onClick={(e) => console.log('implement me')}
+              onClick={(e) => navigate('account')}
             >
               Accounts
             </Button>
