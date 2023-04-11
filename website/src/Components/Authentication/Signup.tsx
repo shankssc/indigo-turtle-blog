@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { MyField } from './MyField';
-import { Root, Form as StyledForm, Card as MuiCard, StyledCardHeader, StyledTextField, StyledButton, StyledText } from './Styles';
+import {
+  Root,
+  Form as StyledForm,
+  Card as MuiCard,
+  StyledCardHeader,
+  StyledTextField,
+  StyledButton,
+  StyledText,
+} from './Styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { text } from 'stream/consumers';
+import { Button, Grid } from '@mui/material';
 
 interface Values {
   username: string;
@@ -14,13 +23,12 @@ interface Values {
   confirmPassword: string;
 }
 
-
 const theme = createTheme(); // create a default theme object
 
 export const RegisterForm: React.FC = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   /*
   const onSubmit = async (values: Values): Promise<void> => {
     try {
@@ -38,30 +46,35 @@ export const RegisterForm: React.FC = (): JSX.Element => {
     }
   }
   */
-  
+
   const instance = axios.create({
     baseURL: 'http://localhost:4000',
     withCredentials: true,
   });
 
   const onSubmit = async (values: Values): Promise<void> => {
-  try {
-    const response = await instance.post("/register", {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-    });
-    console.log(response.data);
-    navigate("/login");
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      const response = await instance.post('/register', {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+      console.log(response.data);
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Formik
-        initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
+        initialValues={{
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        }}
         onSubmit={async (values) => {
           await onSubmit(values);
         }}
@@ -70,15 +83,17 @@ export const RegisterForm: React.FC = (): JSX.Element => {
           <Root>
             <MuiCard theme={theme}>
               <StyledCardHeader title="Sign Up" />
-              <StyledText theme={theme}>Already a User?{' '}
-  <a
-    onClick={(event) => {
-      event.preventDefault();
-      navigate('/login');
-    }}
-  >
-    Sign In
-  </a></StyledText>
+              <StyledText theme={theme}>
+                Already a User?{' '}
+                <Button
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate('/login');
+                  }}
+                >
+                  Sign In
+                </Button>
+              </StyledText>
               <StyledForm>
                 <div>
                   <Field
@@ -121,9 +136,10 @@ export const RegisterForm: React.FC = (): JSX.Element => {
                 </div>
 
                 <div>
-                  <StyledButton theme={theme} type="submit">Register</StyledButton>
+                  <StyledButton theme={theme} type="submit">
+                    Register
+                  </StyledButton>
                 </div>
-
               </StyledForm>
             </MuiCard>
           </Root>
