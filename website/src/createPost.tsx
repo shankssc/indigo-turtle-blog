@@ -1,4 +1,36 @@
-import React from 'react'
+import React, {useState} from 'react'
+
+interface FormData {
+    postTitle: string;
+    postContent: string;
+    tags: string[];
+}
+
+const initialFormData: FormData = {
+    postTitle: "",
+    postContent: "",
+    tags: [],
+};
+
+const [formData, setFormData] = useState<FormData>(initialFormData);
+
+const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+};
+
+const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const options = event.target.options;
+    const selectedOptions: string[] = [];
+    for (let i = 0; i < options.length; i++) {
+    if (options[i].selected) {
+        selectedOptions.push(options[i].value);
+    }
+    }
+    setFormData({ ...formData, tags: selectedOptions });
+}
 
 function CreatePost(): JSX.Element {
 
@@ -22,20 +54,35 @@ function CreatePost(): JSX.Element {
     return (
         <form method="post" onSubmit={handleSubmit}>
             <label >
-                Title: <input name="postTitle" defaultValue="Title" />
+                Title:  
+                <input 
+                    name="postTitle" 
+                    defaultValue="Title" 
+                    value={formData.postTitle}
+                    onChange={handleInputChange}
+                />
             </label>
             <label>
                 Edit your post:
                 <textarea
-                name="postContent"
-                placeholder="deep thoughts"
-                rows={4}
-                cols={40}
+                    name="postContent"
+                    placeholder="deep thoughts"
+                    rows={4}
+                    cols={40}
+                    value={formData.postContent}
+                    onChange={handleInputChange}
                 />
             </label>
             <label >
                 Select post tags:
-                <select name="tags" id="tags" multiple required>
+                <select 
+                    name="tags" 
+                    id="tags" 
+                    multiple 
+                    required
+                    value={formData.tags}
+                    onChange={handleSelectChange}
+                >
                     <option value="travel">Travel</option>
                     <option value="cooking">Cooking</option>
                     <option value="hobbies">Hobbies</option>
