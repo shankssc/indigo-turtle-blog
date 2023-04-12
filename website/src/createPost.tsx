@@ -28,7 +28,7 @@ function CreatePost(): JSX.Element {
                 Edit your post:
                 <textarea
                 name="postContent"
-                placeholder="deep thoughts with {${userName}}"
+                placeholder="deep thoughts"
                 rows={4}
                 cols={40}
                 />
