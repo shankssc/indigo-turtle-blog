@@ -102,11 +102,15 @@ app.post('/register', async (req: Request, res: Response) => {
 
 
 app.post('/login', passport.authenticate("local"), (req: Request,res: Response) => {
-    res.send("Successfully authenticated");
+    res.send(req.user);
 });
 
 app.get('/user', (req: Request, res: Response) => {
-  res.send(req.user);
+  if (req.isAuthenticated()) {
+    res.send(req.user);
+  } else {
+    res.status(401).send('Unauthorized');
+  }
 })
 
 app.get('/logout', (req: Request, res: Response) => {

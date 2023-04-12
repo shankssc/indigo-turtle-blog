@@ -18,6 +18,7 @@ export const Root = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  
 `;
 
 export const Form = styled(FormikForm)`

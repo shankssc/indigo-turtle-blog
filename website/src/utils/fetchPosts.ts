@@ -2,7 +2,8 @@ import { z } from 'zod';
 
 import { isPost } from './isPost';
 
-import * as posts from 'post-objects.json';
+ import * as posts from 'post-objects.json';
+import { Post } from '../global'
 
 export async function fetchPosts(): Promise<Post[]> {
   // Placeholder for fetching posts from serverside

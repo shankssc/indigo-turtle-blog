@@ -1,5 +1,6 @@
 import React,{useContext} from 'react';
 import { Formik, Form, Field } from 'formik';
+import { Button } from '@mui/material'
 import { MyField } from './MyField';
 import {
   Root,
@@ -38,7 +39,7 @@ export const AuthForm: React.FC = (): JSX.Element => {
         password: values.password,
       });
       console.log('Got response:', response.data);
-      navigate('/');
+      navigate('/postspage');
     } catch (error) {
       console.error(error);
     }
