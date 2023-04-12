@@ -1,18 +1,26 @@
+import React, { useContext } from 'react';
+import { RegisterForm } from 'components/Authentication/Signup';
+import { AccountPage } from './components/AccountPage';
+import { AuthForm } from 'components/Authentication/Signin';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PostsPage } from './components/PostsPage';
+import Context, { myContext } from 'components/Context';
 import CreatePost from 'createPost';
-import React from 'react';
 
 function App(): JSX.Element {
+
   return (
     <div className="App">
-      <h1>indigo-turtle-blog title!</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-        error magnam dolorum laboriosam, modi veniam corrupti impedit incidunt
-        eius illo voluptates libero architecto similique eveniet dignissimos qui
-        maiores debitis quis atque commodi perferendis excepturi dicta
-        voluptatibus eligendi? Assumenda modi ab possimus, amet adipisci
-        excepturi quam atque esse non id cumque!
-      </p>
+      <Router>
+        <Routes>
+          <Route path="/" element={<RegisterForm />} />{' '}
+          {/* TODO: "/" should be routing to Signin or Signup */}
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/postspage" element={<PostsPage />} />
+          <Route path="/register" element={<RegisterForm />}></Route>
+          <Route path="/login" element={<AuthForm />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
