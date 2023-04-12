@@ -1,8 +1,7 @@
 import React from 'react';
 import { FieldProps } from 'formik';
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField, TextFieldProps, createTheme } from '@mui/material';
 import { StyledTextField } from './Styles';
-import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme();
 

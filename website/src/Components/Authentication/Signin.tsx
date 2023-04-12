@@ -10,10 +10,9 @@ import {
   StyledButton,
   StyledText,
 } from './Styles';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, Button } from '@mui/material';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 interface Values {
   username: string;
