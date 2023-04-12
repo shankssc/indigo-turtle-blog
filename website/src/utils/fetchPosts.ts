@@ -6,6 +6,7 @@ import * as posts from 'post-objects.json';
 
 export async function fetchPosts(): Promise<Post[]> {
   // Placeholder for fetching posts from serverside
+  // fetch('http://localhost:4000/post');
   const json: unknown = posts;
 
   const schema = z.object({

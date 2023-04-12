@@ -1,12 +1,14 @@
 .container {
-  background: #4bb000;
-  height: 600px;
+  background: #73e09f;
+  padding-bottom: 20px;
   margin: 20px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 1rem;
+  max-width: 500px;
+  margin: 50px auto;
 }
 
 .formContainer {
@@ -24,13 +26,28 @@ form {
 }
 
 .btn {
-  padding: 15px 50px;
-  border-radius: 5px;
-  background: #6500b0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 15px 5px;
+  font-weight: bold;
+  width: 200px;
 }
 
 .btn:hover {
-  background: #7a00d6;
+  color: white;
+}
+
+.submitBtn {
+  margin: 0 auto;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  background: green;
+  width: 100px;
+  height: 100px;
+  margin: 30px;
 }
 
 .postspage {

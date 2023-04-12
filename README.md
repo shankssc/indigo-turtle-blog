@@ -14,10 +14,12 @@ However, the more we do these kind of things, we more we will feel used to it an
   - utils directory (all of the helper functions that are shared between components will be stored here)
   - App.tsx (App.tsx will load the components from the components directory)
   - index.tsx (this is our starting point in our website-code, index.tsx will call App.tsx)
+- documentation directory
+  - [api-endpoint.md](website/documentation/api-endpoint.md)
 
 components directory will include all of the React components including the page components (ex: PostsPage) and other components everyone make for their page.
 
-### Server directory:
+### Backend directory:
 - T.B.D (shankssc is working on this)
 
 
