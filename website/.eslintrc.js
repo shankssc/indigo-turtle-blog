@@ -5,6 +5,7 @@ module.exports = {
     'prettier',
     'react-app',
   ],
+  rules: {},
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
