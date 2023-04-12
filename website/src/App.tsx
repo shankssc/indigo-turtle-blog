@@ -7,8 +7,6 @@ import { PostsPage } from './components/PostsPage';
 import Context, { myContext } from 'components/Context';
 
 function App(): JSX.Element {
-  const ctx = useContext(myContext);
-  console.log('current context is ', ctx);
 
   return (
     <div className="App">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
-import { Popup } from "./Popup";
+import  Popup  from './Popup'
 
 function ProfilePictureForm(): JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File>();

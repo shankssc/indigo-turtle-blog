@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Formik, Form, Field } from 'formik';
+import { Button } from '@mui/material'
 import { MyField } from './MyField';
 import {
   Root,
@@ -13,7 +14,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { myContext } from 'components/Context';
 
 interface Values {
   username: string;
@@ -23,6 +24,8 @@ interface Values {
 const theme = createTheme(); // create a default theme object
 
 export const AuthForm: React.FC = (): JSX.Element => {
+  const ctx = useContext(myContext);
+  console.log("current context is ", ctx);
   const navigate = useNavigate();
   const instance = axios.create({
     baseURL: 'http://localhost:4000',
@@ -36,7 +39,7 @@ export const AuthForm: React.FC = (): JSX.Element => {
         password: values.password,
       });
       console.log('Got response:', response.data);
-      navigate('/');
+      navigate('/postspage');
     } catch (error) {
       console.error(error);
     }

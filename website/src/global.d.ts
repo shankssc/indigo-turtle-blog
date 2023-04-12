@@ -1,4 +1,4 @@
-interface Post {
+export interface Post {
   author: string;
   uid: string;
   title: string;
@@ -21,4 +21,11 @@ interface DateTime {
   hr: string;
   min: string;
   sec: string;
+}
+
+export interface User {
+  uid?: string;
+  username: string;
+  email: string;
+  password: string;
 }

@@ -4,7 +4,7 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
 import { User,createUser,getUserById, getUserByUsername } from './models/user';
-import {Post,createPost, deletePost} from './models/post';
+import {Post,createPost, deletePost, getPost, isUserAuthorized, updatePostContent, getAllPosts} from './models/post';
 import passportlocal from 'passport-local';
 import * as bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
@@ -102,11 +102,15 @@ app.post('/register', async (req: Request, res: Response) => {
 
 
 app.post('/login', passport.authenticate("local"), (req: Request,res: Response) => {
-    res.send("Successfully authenticated");
+    res.send(req.user);
 });
 
 app.get('/user', (req: Request, res: Response) => {
-  res.send(req.user);
+  if (req.isAuthenticated()) {
+    res.send(req.user);
+  } else {
+    res.status(401).send('Unauthorized');
+  }
 })
 
 app.get('/logout', (req: Request, res: Response) => {
@@ -143,6 +147,11 @@ app.post('/createposts', async (req: Request, res: Response) => {
     }
   });
 
+  app.get('/posts', (req, res) => {
+    getAllPosts((posts) => {
+      res.send(posts);
+    });
+  });
 
   app.listen(4000, () => {
     console.log('Server started successfully');
