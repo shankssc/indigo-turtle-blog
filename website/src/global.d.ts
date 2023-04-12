@@ -1,4 +1,4 @@
-export interface Post {
+interface Post {
   author: string;
   uid: string;
   title: string;
@@ -23,7 +23,7 @@ interface DateTime {
   sec: string;
 }
 
-export interface User {
+interface User {
   uid?: string;
   username: string;
   email: string;

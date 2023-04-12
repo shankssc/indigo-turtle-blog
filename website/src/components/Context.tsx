@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react';
 import Axios, { AxiosResponse } from 'axios';
-import { User } from './interface';
 
 export const myContext = createContext<Partial<User>>({});
 export default function Context(props: PropsWithChildren<any>): JSX.Element {

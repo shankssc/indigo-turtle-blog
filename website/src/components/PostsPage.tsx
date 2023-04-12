@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-// import { Card, Row, Item } from '@mui/material';  
+// import { Card, Row, Item } from '@mui/material';
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
@@ -13,6 +13,8 @@ import {
   createTheme,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import { myContext } from './Context';
 
 const theme = createTheme({
   palette: {
@@ -30,8 +32,6 @@ const theme = createTheme({
     },
   },
 });
-import { Post,DateTime } from 'global';
-import { myContext } from './Context';
 /****
  * Create JSX Elements Functions
  */
