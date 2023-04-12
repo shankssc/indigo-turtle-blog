@@ -5,6 +5,7 @@ import { AuthForm } from 'components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PostsPage } from './components/PostsPage';
 import Context, { myContext } from 'components/Context';
+import CreatePost from 'createPost';
 
 function App(): JSX.Element {
 
