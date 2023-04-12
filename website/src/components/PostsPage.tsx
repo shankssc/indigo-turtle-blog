@@ -129,7 +129,15 @@ const handlePostClicked = (
 };
 
 // TODO: Reach
-const handleMyPost = (): void => {};
+const handleMyPost = (posts: Post[], user: User, setPosts: React.Dispatch<React.SetStateAction<Post[]>>): void => {
+  const usersPosts: Post[] = [];
+  posts.map( (element) => {
+  if (element.uid === user.uid) {
+    usersPosts.push(element);
+  }
+})
+setPosts(usersPosts);
+};
 
 /****
  * PostsPage
