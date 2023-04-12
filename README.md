@@ -53,8 +53,6 @@ Backend
     Language: NodeJS
     Framework: ExpressJS
     Database: Firebase Realtime Database?
-    Code Style: Prettier, Eslint
-    Testing: ?
     Paradigm: Functional
     Version Tracking: git, github
 ```
