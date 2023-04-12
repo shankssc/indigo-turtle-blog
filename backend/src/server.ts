@@ -153,6 +153,19 @@ app.post('/createposts', async (req: Request, res: Response) => {
     });
   });
 
+  app.patch('/posts/:postId', async (req, res) => {
+    const { postId } = req.params;
+    const { username, content } = req.body;
+  
+    try {
+      await updatePostContent(postId, content, username);
+      res.status(200).json({ message: 'Post content updated successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while updating the post content.' });
+    }
+  });
+
   app.listen(4000, () => {
     console.log('Server started successfully');
   });

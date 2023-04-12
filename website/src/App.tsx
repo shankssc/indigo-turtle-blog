@@ -7,17 +7,27 @@ import { PostsPage } from './components/PostsPage';
 import Context, { myContext } from 'components/Context';
 
 function App(): JSX.Element {
-
+  const ctx = useContext(myContext);
+  console.log("Length of the context is ", Object.keys(ctx).length)
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<RegisterForm />} />{' '}
+          <Route path="/" element={<RegisterForm />} />
           {/* TODO: "/" should be routing to Signin or Signup */}
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/postspage" element={<PostsPage />} />
-          <Route path="/register" element={<RegisterForm />}></Route>
-          <Route path="/login" element={<AuthForm />}></Route>
+          {
+            Object.keys(ctx).length !== 0 ? (
+              <>
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/postspage" element={<PostsPage />} />
+              </>
+            ) : (
+              <>
+              <Route path="/login" element={<AuthForm />} />
+              </>
+            )
+          }
+          
         </Routes>
       </Router>
     </div>
