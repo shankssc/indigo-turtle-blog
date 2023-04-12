@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 function Popup(content: JSX.Element, btnText: string): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -20,4 +21,4 @@ function Popup(content: JSX.Element, btnText: string): JSX.Element {
     </>
   );
 }
-export { Popup };
+export default  Popup ;

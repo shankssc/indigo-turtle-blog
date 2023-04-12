@@ -1,58 +1,118 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+
 // import { Card, Row, Item } from '@mui/material';
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
 import {
+  AppBar,
+  Box,
   Button,
   Card,
   CardContent,
+  Chip,
+  Container,
+  Drawer,
   Grid,
-  ThemeProvider,
-  createTheme,
+  Theme,
+  Typography,
+  useTheme,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#7801b7',
-      main: '#6400b0',
-      dark: '#3900a6',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#339c00',
-      main: '#4cb000',
-      dark: '#5cc00c',
-      contrastText: '#ffffff',
-    },
-  },
-});
-
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { myContext } from './Context';
 /****
  * Create JSX Elements Functions
  */
 
 const createTag = (tag: string): JSX.Element => {
-  return <div className="tag" key={tag}></div>;
+  return <Chip label={tag} key={tag} size="small" style={{ color: '' }} />;
 };
 
 const createPost = (post: Post): JSX.Element => {
   return (
-    <Grid item>
+    <Grid item xs={12}>
       <Card
         className="post"
         key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
         onClick={handlePostClicked}
       >
         <CardContent>
-          <h3 className="post__title">{post.title}</h3>
-          <p className="post__author">By {post.author}</p>
-          <p className="post__date">{dateToString(post.date)}</p>
-          <div className="post__tags">{post.tags.map(createTag)}</div>
+          <Typography variant="h6" color="white">
+            {post.title}
+          </Typography>
+          <Grid container direction="row" p={1} gap={2}>
+            <Typography variant="body2" color="white">
+              {post.author}
+            </Typography>
+            <Typography variant="body2" color="white">
+              {dateToString(post.date)}
+            </Typography>
+            {post.tags.map(createTag)}
+          </Grid>
         </CardContent>
       </Card>
+    </Grid>
+  );
+};
+
+const createNavUser = (
+  theme: Theme,
+  navigate: NavigateFunction
+): JSX.Element => {
+  return (
+    <Grid
+      item
+      className="navbar"
+      xs
+      container
+      justifyContent="space-evenly"
+      alignItems="center"
+      style={{
+        backgroundColor: theme.palette.secondary.dark,
+      }}
+    >
+      <Typography
+        variant="h5"
+        component="h3"
+        color={theme.palette.secondary.contrastText}
+      >
+        {'Username'}
+      </Typography>
+      <Grid
+        container
+        direction="column"
+        p={1}
+        gap={2}
+        className="navbar__buttons"
+      >
+        <Button
+          variant="contained"
+          className="my-posts-button"
+          onClick={(e) => console.log('implement me')}
+          color="secondary"
+        >
+          My Posts
+        </Button>
+        <Button
+          variant="contained"
+          className="create-post"
+          onClick={(e) => navigate('../create-post')}
+          color="secondary"
+        >
+          Create Post
+        </Button>
+        <Button
+          variant="contained"
+          className="accounts"
+          onClick={(e) => navigate('../account')}
+          color="secondary"
+        >
+          Accounts
+        </Button>
+      </Grid>
+      <Button>
+        <Typography color="black">Sign out</Typography>
+      </Button>
     </Grid>
   );
 };
@@ -71,12 +131,6 @@ const handlePostClicked = (
 // TODO: Reach
 const handleMyPost = (): void => {};
 
-// TODO: Solarized
-const handleCreatePost = (): void => {};
-
-// TODO: ?
-const handleAccounts = (): void => {};
-
 /****
  * PostsPage
  */
@@ -87,6 +141,9 @@ export function PostsPage(): JSX.Element {
   const [posts, setPosts] = useState(emptypost);
   const navigate = useNavigate();
 
+  const ctx = useContext(myContext);
+  console.log(ctx);
+
   useEffect(() => {
     // This function will run when page is first initialized and when pageN is updated
     const set = async (): Promise<void> => setPosts(await fetchPosts());
@@ -94,49 +151,31 @@ export function PostsPage(): JSX.Element {
   }, [pageN]);
   // TODO: Have useEffect run when the last 5th post is in sight
 
+  const theme = useTheme();
+
   return (
-    <ThemeProvider theme={theme}>
-      <Grid className="postspage" direction="row-reverse" container spacing={2}>
-        <Grid item className="navbar" xs>
-          <div></div>
-          <img src="" alt="User Image" />
-          <span>{'Username'}</span>
-          <div className="navbar__buttons">
-            <Button
-              variant="contained"
-              className="my-posts-button"
-              onClick={(e) => console.log('implement me')}
-              color="secondary"
-            >
-              My Posts
-            </Button>
-            <Button
-              variant="contained"
-              className="create-post"
-              onClick={(e) => navigate('create-post')}
-            >
-              Create Post
-            </Button>
-            <Button
-              variant="contained"
-              className="accounts"
-              onClick={(e) => navigate('account')}
-            >
-              Accounts
-            </Button>
-          </div>
-        </Grid>
-        <Grid
-          className="posts"
-          xs={10}
-          direction="column"
-          container
-          spacing={2}
-          pt={3}
-        >
-          {posts.map(createPost)}
-        </Grid>
+    <Grid
+      className="postspage"
+      direction="row-reverse"
+      container
+      gap={2}
+      style={{ height: '100vh' }}
+    >
+      {createNavUser(theme, navigate)}
+      <Grid
+        className="posts"
+        xs={9}
+        direction="row"
+        container
+        spacing={2}
+        pt={3}
+        style={{
+          height: '100vh',
+          overflow: 'scroll',
+        }}
+      >
+        {posts.map(createPost)}
       </Grid>
-    </ThemeProvider>
+    </Grid>
   );
 }
