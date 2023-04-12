@@ -13,7 +13,6 @@ function App(): JSX.Element {
         voluptatibus eligendi? Assumenda modi ab possimus, amet adipisci
         excepturi quam atque esse non id cumque!
       </p>
-      <CreatePost />
     </div>
   );
 }
