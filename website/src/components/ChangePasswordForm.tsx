@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
-import { Popup } from "./Popup";
+import  Popup  from "./Popup";
 
 function ChangePasswordForm(): JSX.Element {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -72,7 +72,7 @@ function ChangePasswordForm(): JSX.Element {
 
         <span style={{ color: "red" }}>{passwordError}</span>
 
-        <input className="btn" type="submit" value="Submit" />
+        <input className="btn submitBtn" type="submit" value="Submit" />
       </form>
     </div>,
     "Change Password"

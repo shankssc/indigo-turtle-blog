@@ -22,3 +22,10 @@ interface DateTime {
   min: string;
   sec: string;
 }
+
+interface User {
+  uid?: string;
+  username: string;
+  email: string;
+  password: string;
+}
