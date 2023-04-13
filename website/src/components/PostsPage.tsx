@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 
 // import { Card, Row, Item } from '@mui/material';
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
 import {
-  AppBar,
-  Box,
   Button,
   Card,
   CardContent,
   Chip,
-  Container,
-  Drawer,
   Grid,
   Theme,
   Typography,
@@ -28,14 +24,20 @@ const createTag = (tag: string): JSX.Element => {
   return <Chip label={tag} key={tag} size="small" style={{ color: '' }} />;
 };
 
-const createPost = (post: Post): JSX.Element => {
-  return (
-    <Grid item xs={12}>
-      <Card
-        className="post"
-        key={`${post.author}, ${post.title}, ${dateToString(post.date)}`}
-        onClick={handlePostClicked}
-      >
+const createPosts = (
+  posts: Post[],
+  postComps: React.MutableRefObject<HTMLDivElement[]>
+): JSX.Element[] => {
+  return posts.map((post) => (
+    <Grid
+      item
+      xs={12}
+      ref={(el) => el != null && postComps.current.push(el)}
+      key={post.uid}
+      data-key={post.uid}
+      onClick={handlePostClicked.bind(null, postComps)}
+    >
+      <Card className="post">
         <CardContent>
           <Typography variant="h6" color="white">
             {post.title}
@@ -52,12 +54,13 @@ const createPost = (post: Post): JSX.Element => {
         </CardContent>
       </Card>
     </Grid>
-  );
+  ));
 };
 
 const createNavUser = (
   theme: Theme,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  username: string
 ): JSX.Element => {
   return (
     <Grid
@@ -76,9 +79,10 @@ const createNavUser = (
         component="h3"
         color={theme.palette.secondary.contrastText}
       >
-        {'Username'}
+        {username}
       </Typography>
       <Grid
+        item
         container
         direction="column"
         p={1}
@@ -117,26 +121,71 @@ const createNavUser = (
   );
 };
 
+const createNavGuest = (
+  theme: Theme,
+  navigate: NavigateFunction
+): JSX.Element => {
+  return (
+    <Grid
+      item
+      className="navbar"
+      xs
+      container
+      justifyContent="center"
+      alignItems="center"
+      style={{
+        backgroundColor: theme.palette.secondary.dark,
+      }}
+    >
+      <Grid
+        container
+        direction="column"
+        p={1}
+        gap={4}
+        className="navbar__buttons"
+      >
+        <Button variant="text">
+          <Typography variant="h6" color="white">
+            Sign up
+          </Typography>
+        </Button>
+        <Button variant="text">
+          <Typography variant="h6" color="white">
+            Sign in
+          </Typography>
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
+
 /****
  * Event Handling Functions
  */
 
 // TODO: DekoMoon
 const handlePostClicked = (
+  postComps: React.MutableRefObject<HTMLDivElement[]>,
   e: React.MouseEvent<HTMLDivElement, MouseEvent>
 ): void => {
-  console.log(e);
+  console.log(
+    postComps.current.filter((el) => el == e.currentTarget)[0].dataset.key
+  );
 };
 
 // TODO: Reach
-const handleMyPost = (posts: Post[], user: User, setPosts: React.Dispatch<React.SetStateAction<Post[]>>): void => {
+const handleMyPost = (
+  posts: Post[],
+  user: User,
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>
+): void => {
   const usersPosts: Post[] = [];
-  posts.map( (element) => {
-  if (element.uid === user.uid) {
-    usersPosts.push(element);
-  }
-})
-setPosts(usersPosts);
+  posts.forEach((element) => {
+    if (element.uid === user.uid) {
+      usersPosts.push(element);
+    }
+  });
+  setPosts(usersPosts);
 };
 
 /****
@@ -144,13 +193,12 @@ setPosts(usersPosts);
  */
 
 export function PostsPage(): JSX.Element {
-  const emptypost: Post[] = [];
+  const postComps = useRef<HTMLDivElement[]>([]);
   const [pageN, setPageN] = useState(0);
-  const [posts, setPosts] = useState(emptypost);
+  const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
 
   const ctx = useContext(myContext);
-  console.log(ctx);
 
   useEffect(() => {
     // This function will run when page is first initialized and when pageN is updated
@@ -169,8 +217,11 @@ export function PostsPage(): JSX.Element {
       gap={2}
       style={{ height: '100vh' }}
     >
-      {createNavUser(theme, navigate)}
+      {ctx.username !== undefined
+        ? createNavUser(theme, navigate, ctx.username)
+        : createNavGuest(theme, navigate)}
       <Grid
+        item
         className="posts"
         xs={9}
         direction="row"
@@ -182,7 +233,7 @@ export function PostsPage(): JSX.Element {
           overflow: 'scroll',
         }}
       >
-        {posts.map(createPost)}
+        {createPosts(posts, postComps)}
       </Grid>
     </Grid>
   );
