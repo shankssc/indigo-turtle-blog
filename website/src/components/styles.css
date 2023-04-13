@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  background: #73e09f;
+  background: #339c00;
   padding-bottom: 20px;
   margin: 20px;
   border-radius: 5px;
@@ -48,13 +48,10 @@ form {
 
 .profilePicture {
   border-radius: 50%;
-  background: green;
   width: 100px;
   height: 100px;
   margin: 30px;
 }
-
-
 
 .postspage {
 }
