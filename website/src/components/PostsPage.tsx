@@ -42,8 +42,10 @@ const OVERLAY_STYLE = {
  * Create JSX Elements Functions
  */
 
-const createTag = (tag: string): JSX.Element => {
-  return <Chip label={tag} key={tag} size="small" style={{ color: '' }} />;
+const createTags = (tags: string[]): JSX.Element[] => {
+  return tags.map((tag) => (
+    <Chip label={tag} key={tag} size="small" style={{ color: '' }} />
+  ));
 };
 
 const createPosts = (
@@ -72,7 +74,7 @@ const createPosts = (
             <Typography variant="body2" color="white">
               {dateToString(post.date)}
             </Typography>
-            {post.tags.map(createTag)}
+            {createTags(post.tags)}
           </Grid>
         </CardContent>
       </Card>
@@ -186,11 +188,35 @@ const createPostOverlay = (
   popIsOpen: boolean,
   setPopIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ): JSX.Element => {
+  const postTitle = 'Post Title';
+  const post: Post = {
+    author: 'BittenByDoe',
+    uid: '2979427424',
+    title: 'How my dog bit me today.',
+    content: 'Action action action action action',
+    date: {
+      year: '2023',
+      month: '05',
+      day: '23',
+      hr: '23',
+      min: '55',
+      sec: '03',
+    },
+    tags: ['Science', 'Politics', 'Commons'],
+  };
   return (
     <Modal open={popIsOpen} onClose={() => setPopIsOpen(false)}>
-      <Box sx={OVERLAY_STYLE}>
-        <h3>HELLO WORLD</h3>
-      </Box>
+      <Grid container sx={OVERLAY_STYLE}>
+        <Grid item>{post.title}</Grid>
+        <Grid item container>
+          <Grid item>{post.author}</Grid>
+          <Grid item>{dateToString(post.date)}</Grid>
+          <Grid item container>
+            {createTags(post.tags)}
+          </Grid>
+        </Grid>
+        <Grid item>{post.content}</Grid>
+      </Grid>
     </Modal>
   );
 };
