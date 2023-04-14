@@ -1,5 +1,6 @@
 import { DateTime } from "global";
 
 export const dateToString = (date: DateTime): string => {
-  return `${date.month}/${date.day}/${date.year}`;
+  const str: string = `${date.month}/${date.day}/${date.year}`;
+  return str;
 };

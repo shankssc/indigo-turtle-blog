@@ -5,8 +5,8 @@ import {
   TextField,
   Button,
   Link,
+  Theme,
 } from '@mui/material';
-import { Theme } from '@mui/material/styles';
 import { Form as FormikForm } from 'formik';
 
 interface StyledCardProps {
