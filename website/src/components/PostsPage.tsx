@@ -5,17 +5,39 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { fetchPosts } from 'utils/fetchPosts';
 import { dateToString } from 'utils/dateToString';
 import {
+  Box,
   Button,
   Card,
   CardContent,
   Chip,
+  Container,
   Grid,
+  Modal,
+  Popover,
   Theme,
   Typography,
   useTheme,
 } from '@mui/material';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { myContext } from './Context';
+
+/****
+ * Constants
+ */
+
+const OVERLAY_STYLE = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '80%',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  outline: 'none',
+};
+
 /****
  * Create JSX Elements Functions
  */
@@ -26,7 +48,8 @@ const createTag = (tag: string): JSX.Element => {
 
 const createPosts = (
   posts: Post[],
-  postComps: React.MutableRefObject<HTMLDivElement[]>
+  postComps: React.MutableRefObject<HTMLDivElement[]>,
+  setPopIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ): JSX.Element[] => {
   return posts.map((post) => (
     <Grid
@@ -35,7 +58,7 @@ const createPosts = (
       ref={(el) => el != null && postComps.current.push(el)}
       key={post.uid}
       data-key={post.uid}
-      onClick={handlePostClicked.bind(null, postComps)}
+      onClick={handlePostClicked.bind(null, postComps, setPopIsOpen)}
     >
       <Card className="post">
         <CardContent>
@@ -159,6 +182,19 @@ const createNavGuest = (
   );
 };
 
+const createPostOverlay = (
+  popIsOpen: boolean,
+  setPopIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+): JSX.Element => {
+  return (
+    <Modal open={popIsOpen} onClose={() => setPopIsOpen(false)}>
+      <Box sx={OVERLAY_STYLE}>
+        <h3>HELLO WORLD</h3>
+      </Box>
+    </Modal>
+  );
+};
+
 /****
  * Event Handling Functions
  */
@@ -166,11 +202,13 @@ const createNavGuest = (
 // TODO: DekoMoon
 const handlePostClicked = (
   postComps: React.MutableRefObject<HTMLDivElement[]>,
+  setPopIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
   e: React.MouseEvent<HTMLDivElement, MouseEvent>
 ): void => {
   console.log(
     postComps.current.filter((el) => el == e.currentTarget)[0].dataset.key
   );
+  setPopIsOpen(true);
 };
 
 // TODO: Reach
@@ -196,6 +234,7 @@ export function PostsPage(): JSX.Element {
   const postComps = useRef<HTMLDivElement[]>([]);
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [popIsOpen, setPopIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const ctx = useContext(myContext);
@@ -233,8 +272,9 @@ export function PostsPage(): JSX.Element {
           overflow: 'scroll',
         }}
       >
-        {createPosts(posts, postComps)}
+        {createPosts(posts, postComps, setPopIsOpen)}
       </Grid>
+      <Grid>{createPostOverlay(popIsOpen, setPopIsOpen)}</Grid>
     </Grid>
   );
 }
