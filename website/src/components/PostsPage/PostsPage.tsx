@@ -36,7 +36,12 @@ export function PostsPage(): JSX.Element {
       style={{ height: '100vh' }}
     >
       {ctx.username !== undefined ? (
-        <NavUser navigate={navigate} username={ctx.username} />
+        <NavUser
+          navigate={navigate}
+          username={ctx.username}
+          posts={posts}
+          setPosts={setPosts}
+        />
       ) : (
         <NavGuest navigate={navigate} />
       )}
