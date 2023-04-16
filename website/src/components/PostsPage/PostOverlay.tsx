@@ -5,6 +5,9 @@ import {
   Grid,
   Modal,
   Popover,
+  SxProps,
+  TextField,
+  Theme,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -12,7 +15,7 @@ import React, { CSSProperties, useState } from 'react';
 import { dateToString } from 'utils/dateToString';
 import { createTags } from './createTags';
 
-const OVERLAY_STYLE = {
+const OVERLAY_STYLE: SxProps<Theme> = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -21,8 +24,10 @@ const OVERLAY_STYLE = {
   // height: '80%',
   bgcolor: 'background.paper',
   boxShadow: 24,
+
   outline: 'none',
   padding: 2,
+  borderRadius: 3,
 };
 
 const TEXT_SHIFT_DOWN_STYLE = {
@@ -31,11 +36,22 @@ const TEXT_SHIFT_DOWN_STYLE = {
   top: '1px',
 };
 
-const CONTENT_STYLE: CSSProperties = {
+const CONTENT_STYLE = {
   maxHeight: '75vh',
   overflow: 'scroll',
   fontSize: '1.1rem',
   whiteSpace: 'pre-line',
+};
+
+const EDIT_FIELD_STYLE = {
+  width: '100%',
+  maxHeight: '75vh',
+  overflow: 'scroll',
+  whiteSpace: 'pre-line',
+};
+
+const EDIT_INPUT_STYLE = {
+  fontSize: '1.1rem',
 };
 
 export const PostOverlay = ({
@@ -56,18 +72,36 @@ export const PostOverlay = ({
 
   const handleEditClicked = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {};
+  ): void => {
+    setMoreOpen(false);
+    setEditOpen(true);
+  };
 
   const handleDeleteClicked = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {};
+  ): void => {
+    // TODO: Delete post from db and also remove it from the array of posts using uid.
+    setMoreOpen(false);
+  };
+
+  const handleOnClose = (): void => {
+    setPopIsOpen(false);
+    setEditOpen(false);
+  };
+
+  const handleSaveExitClicked = (): void => {
+    // TODO: Save input to post.content using setFocusPost and update db
+    setMoreOpen(false);
+    setEditOpen(false);
+  };
 
   const theme = useTheme();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   return (
-    <Modal open={popIsOpen} onClose={() => setPopIsOpen(false)}>
+    <Modal open={popIsOpen} onClose={handleOnClose}>
       <Grid container sx={OVERLAY_STYLE} direction="column">
         <Grid item xs={0.75} className="pop_top">
           <Grid container direction="row" justifyContent="space-between">
@@ -101,13 +135,23 @@ export const PostOverlay = ({
                 }}
               >
                 <ButtonGroup variant="text" orientation="vertical">
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: theme.palette.primary.dark }}
-                    onClick={handleEditClicked}
-                  >
-                    Edit
-                  </Button>
+                  {!editOpen ? (
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: theme.palette.primary.dark }}
+                      onClick={handleEditClicked}
+                    >
+                      Edit
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: theme.palette.primary.dark }}
+                      onClick={handleSaveExitClicked}
+                    >
+                      Save Edit
+                    </Button>
+                  )}
                   <Button
                     variant="contained"
                     style={{ backgroundColor: theme.palette.primary.dark }}
@@ -149,13 +193,30 @@ export const PostOverlay = ({
           </Grid>
         </Grid>
         <Grid item xs>
-          <Typography
-            variant="body1"
-            color={theme.palette.secondary.contrastText}
-            style={CONTENT_STYLE}
-          >
-            {post.content}
-          </Typography>
+          {!editOpen ? (
+            <Typography
+              variant="body1"
+              color={theme.palette.secondary.contrastText}
+              sx={CONTENT_STYLE}
+            >
+              {post.content}
+            </Typography>
+          ) : (
+            <TextField
+              variant="filled"
+              defaultValue={post.content}
+              multiline
+              sx={{
+                ...EDIT_FIELD_STYLE,
+              }}
+              inputProps={{
+                style: {
+                  ...EDIT_INPUT_STYLE,
+                  color: theme.palette.secondary.contrastText,
+                },
+              }}
+            />
+          )}
         </Grid>
       </Grid>
     </Modal>

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Grid, Typography, useTheme } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
+import { myContext } from 'components/Context';
 
 const handleMyPost = (
+  userUID: string,
   posts: Post[],
-  user: User,
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>
 ): void => {
   const usersPosts: Post[] = [];
   posts.forEach((element) => {
-    if (element.uid === user.uid) {
+    if (element.uid === userUID) {
       usersPosts.push(element);
     }
   });
@@ -19,11 +20,16 @@ const handleMyPost = (
 export const NavUser = ({
   navigate,
   username,
+  posts,
+  setPosts,
 }: {
   navigate: NavigateFunction;
   username: string;
+  posts: Post[];
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }): JSX.Element => {
   const theme = useTheme();
+  const ctx = useContext(myContext);
   return (
     <Grid
       item
@@ -54,7 +60,11 @@ export const NavUser = ({
         <Button
           variant="contained"
           className="my-posts-button"
-          onClick={(e) => console.log('implement me')}
+          onClick={(e) =>
+            ctx.uid !== undefined
+              ? handleMyPost(ctx.uid, posts, setPosts)
+              : console.error('User has not made any post')
+          }
           color="secondary"
         >
           My Posts
