@@ -13,10 +13,11 @@ import { createPosts } from './createPosts';
 export function PostsPage(): JSX.Element {
   const theme = useTheme();
   const ctx = useContext(myContext);
+
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
   const [popIsOpen, setPopIsOpen] = useState(false);
-  // const [postComps, setPostComps] = useState<HTMLDivElement[]>([]);
+  const [focusPost, setFocusPost] = useState<Post | null>(null);
   const postComps = useRef<HTMLDivElement[]>([]);
   const navigate = useNavigate();
 
@@ -52,14 +53,18 @@ export function PostsPage(): JSX.Element {
           overflow: 'scroll',
         }}
       >
-        {createPosts(theme, posts, postComps, setPopIsOpen)}
+        {createPosts(theme, posts, postComps, setPopIsOpen, setFocusPost)}
       </Grid>
       <Grid>
-        <PostOverlay
-          popIsOpen={popIsOpen}
-          setPopIsOpen={setPopIsOpen}
-          posts={posts}
-        />
+        {focusPost === null ? (
+          ''
+        ) : (
+          <PostOverlay
+            popIsOpen={popIsOpen}
+            setPopIsOpen={setPopIsOpen}
+            post={focusPost}
+          />
+        )}
       </Grid>
     </Grid>
   );

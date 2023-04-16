@@ -77,7 +77,7 @@ export const NavUser = ({
         </Button>
       </Grid>
       <Button>
-        <Typography color="black">Sign out</Typography>
+        <Typography color="hsla(0, 100%, 0%, 0.5)">Sign out</Typography>
       </Button>
     </Grid>
   );

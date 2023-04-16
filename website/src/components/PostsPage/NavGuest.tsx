@@ -27,13 +27,13 @@ export const NavGuest = ({
         gap={4}
         className="navbar__buttons"
       >
-        <Button variant="text">
-          <Typography variant="h6" color="white">
+        <Button variant="text" onClick={() => navigate('/register')}>
+          <Typography variant="h6" color={theme.palette.secondary.contrastText}>
             Sign up
           </Typography>
         </Button>
-        <Button variant="text">
-          <Typography variant="h6" color="white">
+        <Button variant="text" onClick={() => navigate('/login')}>
+          <Typography variant="h6" color={theme.palette.secondary.contrastText}>
             Sign in
           </Typography>
         </Button>
