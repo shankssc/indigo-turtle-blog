@@ -115,7 +115,7 @@ app.get('/user', (req: Request, res: Response) => {
 
 app.get('/logout', (req: Request, res: Response) => {
   req.logout(() => {
-    res.send('success');
+    res.send('logged out successfully');
   });
 });
 

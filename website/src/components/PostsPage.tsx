@@ -18,8 +18,10 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Navigate, NavigateFunction, useNavigate } from 'react-router-dom';
 import { myContext } from './Context';
+import  axios, {AxiosResponse } from 'axios';
+
 /****
  * Create JSX Elements Functions
  */
@@ -55,10 +57,22 @@ const createPost = (post: Post): JSX.Element => {
   );
 };
 
+
+
 const createNavUser = (
   theme: Theme,
   navigate: NavigateFunction
 ): JSX.Element => {
+  const Navigator = useNavigate();
+  const logout = async (): Promise<void> => {
+    try {
+      await axios.get('http://localhost:4000/logout', { withCredentials: true });
+      Navigator('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Grid
       item
@@ -110,7 +124,7 @@ const createNavUser = (
           Accounts
         </Button>
       </Grid>
-      <Button>
+      <Button onClick={logout}>
         <Typography color="black">Sign out</Typography>
       </Button>
     </Grid>
@@ -159,6 +173,7 @@ export function PostsPage(): JSX.Element {
   }, [pageN]);
   // TODO: Have useEffect run when the last 5th post is in sight
 
+  
   const theme = useTheme();
 
   return (
