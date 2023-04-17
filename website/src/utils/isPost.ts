@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { Post } from 'global';
 
 export function isPost(obj: unknown): obj is Post {
   const postSchema = z.object({

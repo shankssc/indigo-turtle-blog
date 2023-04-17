@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { RegisterForm } from 'components/Authentication/Signup';
 import { AccountPage } from 'components/AccountPage';
 import { AuthForm } from 'components/Authentication/Signin';
@@ -30,20 +30,29 @@ const colorTheme = createTheme({
 
 function App(): JSX.Element {
   const ctx = useContext(myContext);
+  const [user, setUser] = useState<User>();
   console.log('current context is ', ctx);
   return (
     <div className="App">
       <ThemeProvider theme={colorTheme}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<RegisterForm />} />{' '}
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/postspage" element={<PostsPage />} />
-            <Route path="/register" element={<RegisterForm />}></Route>
-            <Route path="/login" element={<AuthForm />}></Route>
-            <Route path="/createpost" element={<CreatePost />} />
-          </Routes>
-        </Router>
+        <Context user={user}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<RegisterForm setUser={setUser} />} />{' '}
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/postspage" element={<PostsPage />} />
+              <Route
+                path="/register"
+                element={<RegisterForm setUser={setUser} />}
+              ></Route>
+              <Route
+                path="/login"
+                element={<AuthForm setUser={setUser} />}
+              ></Route>
+              <Route path="/createpost" element={<CreatePost />} />
+            </Routes>
+          </Router>
+        </Context>
       </ThemeProvider>
     </div>
   );

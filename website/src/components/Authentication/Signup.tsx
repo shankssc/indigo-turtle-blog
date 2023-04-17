@@ -24,7 +24,11 @@ interface Values {
 
 const theme = createTheme(); // create a default theme object
 
-export const RegisterForm: React.FC = (): JSX.Element => {
+export const RegisterForm = ({
+  setUser,
+}: {
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+}): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -59,6 +63,7 @@ export const RegisterForm: React.FC = (): JSX.Element => {
         password: values.password,
       });
       console.log(response.data);
+      setUser(response.data as User);
       navigate('/login');
     } catch (error) {
       console.error(error);

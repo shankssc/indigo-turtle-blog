@@ -14,9 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <div>
-      <Context>
-        <App />
-      </Context>
+      <App />
     </div>
   </React.StrictMode>
 );
