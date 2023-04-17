@@ -7,6 +7,8 @@ import React, {
 } from 'react';
 import Axios, { AxiosResponse } from 'axios';
 
+// todo: context is working on accountpage but is not working in postspage, why is that the case.
+
 export const myContext = createContext<Partial<User>>({});
 export default function Context({
   children,

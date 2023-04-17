@@ -3,7 +3,7 @@ import { RegisterForm } from 'components/Authentication/Signup';
 import { AccountPage } from 'components/AccountPage';
 import { AuthForm } from 'components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { PostsPage } from 'components/PostsPage';
+import { PostsPage } from 'components/PostsPage/PostsPage';
 import Context, { myContext } from 'components/Context';
 import { CreatePost } from 'components/createPost';
 import { ThemeProvider, createTheme } from '@mui/material';
@@ -11,19 +11,19 @@ import { ThemeProvider, createTheme } from '@mui/material';
 const colorTheme = createTheme({
   palette: {
     primary: {
-      light: '#7801b7',
-      main: '#6400b0',
-      dark: '#3900a6',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#5cc00c',
-      main: '#4cb000',
-      dark: '#339c00',
+      light: '#30006B',
+      main: '#1C0049',
+      dark: '#0D0026',
       contrastText: '#ffffff',
     },
+    secondary: {
+      light: '#97FBDC',
+      main: '#67F3BF',
+      dark: '#0A8541',
+      contrastText: '#000000',
+    },
     background: {
-      paper: '#4cb000',
+      paper: '#0A8541',
     },
   },
 });
