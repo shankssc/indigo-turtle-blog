@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Button, Grid, Typography, useTheme } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 import { myContext } from 'components/Context';
+import axios, {AxiosResponse} from 'axios';
 
 const handleMyPost = (
   userUID: string,
@@ -30,6 +31,16 @@ export const NavUser = ({
 }): JSX.Element => {
   const theme = useTheme();
   const ctx = useContext(myContext);
+
+  const logout = async (): Promise<void> => {
+    try {
+      await axios.get('http://localhost:4000/logout', { withCredentials: true });
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Grid
       item
@@ -86,7 +97,7 @@ export const NavUser = ({
           Accounts
         </Button>
       </Grid>
-      <Button>
+      <Button onClick={()=> logout}>
         <Typography color="hsla(0, 100%, 0%, 0.5)">Sign out</Typography>
       </Button>
     </Grid>

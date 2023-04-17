@@ -13,6 +13,7 @@ import { createPosts } from './createPosts';
 export function PostsPage(): JSX.Element {
   const theme = useTheme();
   const ctx = useContext(myContext);
+  console.log("Context inside: ", ctx);
 
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
