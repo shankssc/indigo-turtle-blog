@@ -105,11 +105,20 @@ export const getAllPosts = (callback: (posts: any) => void) => {
   });
 }
 
-export const updatePostContent = async (uid: string, content: string): Promise<void> => {
+export const updatePostContent = async (uid: string, content: string, username: string): Promise<void | null> => {
     const db = getDatabase(dbapp);
-    const postRef = ref(db, 'posts/' + encodeURIComponent(uid));
-  
+    const postRef = ref(db, 'posts/' + encodeURIComponent(uid)); 
+
+    // Retrieve the post data from the database
+    const snapshot = await get(postRef);
+
+  // Check the author's name
+  if (snapshot.exists() && snapshot.val().author === username) {
+    // Update the post content
     await update(postRef, {
       content,
     });
+  } else {
+    return null;
+  }
   };

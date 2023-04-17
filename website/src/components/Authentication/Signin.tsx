@@ -22,7 +22,11 @@ interface Values {
 
 const theme = createTheme(); // create a default theme object
 
-export const AuthForm: React.FC = (): JSX.Element => {
+export const AuthForm = ({
+  setUser,
+}: {
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+}): JSX.Element => {
   const ctx = useContext(myContext);
   console.log('current context is ', ctx);
   const navigate = useNavigate();
@@ -38,6 +42,8 @@ export const AuthForm: React.FC = (): JSX.Element => {
         password: values.password,
       });
       console.log('Got response:', response.data);
+      // FIXME: NEED TO SET CONTEXT HERE
+      setUser(response.data);
       navigate('/postspage');
     } catch (error) {
       console.error(error);
