@@ -33,11 +33,11 @@ export const createPosts = (
   return posts.map((post) => (
     <Grid
       item
-      xs={12}
       ref={(el) => el != null && postComps.current.push(el)}
       key={post.uid}
       data-key={post.uid}
       onClick={handlePostClicked}
+      sx={{ width: '100%' }}
     >
       <Card className="post">
         <CardContent>

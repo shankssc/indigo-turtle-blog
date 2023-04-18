@@ -11,9 +11,10 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useContext, useState } from 'react';
 import { dateToString } from 'utils/dateToString';
 import { createTags } from './createTags';
+import { myContext } from 'components/Context';
 
 const OVERLAY_STYLE: SxProps<Theme> = {
   position: 'absolute' as 'absolute',
@@ -96,6 +97,7 @@ export const PostOverlay = ({
   };
 
   const theme = useTheme();
+  const ctx = useContext(myContext);
   const [moreOpen, setMoreOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -114,13 +116,17 @@ export const PostOverlay = ({
               </Typography>
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                onClick={handleMoreClicked}
-                style={{ backgroundColor: theme.palette.primary.light }}
-              >
-                More
-              </Button>
+              {ctx.username === undefined || ctx.username !== post.author ? (
+                ''
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={handleMoreClicked}
+                  style={{ backgroundColor: theme.palette.primary.light }}
+                >
+                  More
+                </Button>
+              )}
               <Popover
                 open={moreOpen}
                 onClose={() => setMoreOpen(false)}

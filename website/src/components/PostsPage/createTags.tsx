@@ -9,6 +9,13 @@ export const createTags = (theme: Theme, tags: string[]): JSX.Element[] => {
     height: '1.1rem',
   };
   return tags.map((tag): JSX.Element => {
-    return <Chip label={tag} key={tag} size="small" style={TAG_STYLE} />;
+    return (
+      <Chip
+        label={tag[0].toUpperCase() + tag.slice(1)}
+        key={tag}
+        size="small"
+        style={TAG_STYLE}
+      />
+    );
   });
 };
