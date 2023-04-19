@@ -5,7 +5,7 @@ import { AuthForm } from 'components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PostsPage } from 'components/PostsPage/PostsPage';
 import Context, { myContext } from 'components/Context';
-import { CreatePost } from 'components/createPost';
+import { CreatePost } from 'components/CreatePost';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 const colorTheme = createTheme({
