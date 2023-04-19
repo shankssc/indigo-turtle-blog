@@ -80,8 +80,8 @@ export const NavUser = ({
         </Button>
         <Button
           variant="contained"
-          className="create-post"
-          onClick={(e) => navigate('../create-post')}
+          className="createpost"
+          onClick={(e) => navigate('../createpost')}
           color="secondary"
         >
           Create Post
