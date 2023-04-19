@@ -29,6 +29,8 @@ function ChangePasswordForm(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  console.log(`/user/updatePassword/${ctx.uid as string}`);
+
   // submits password change
   const handleSubmitPassword = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -36,11 +38,13 @@ function ChangePasswordForm(): JSX.Element {
       setPasswordError('Passwords do not match');
     } else {
       axios
-        .post('/changePassword', {
-          username: ctx.username,
-          currentPassword,
-          newPassword,
-        })
+        .patch(
+          `http://localhost:4000/user/updatePassword/${ctx.uid as string}`,
+          {
+            activeUser: ctx.username,
+            newPassword,
+          }
+        )
         .then((response) => {
           setPasswordError('Password changed');
           setCurrentPassword('');
