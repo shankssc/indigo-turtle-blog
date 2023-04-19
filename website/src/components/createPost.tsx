@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { myContext } from 'component/Context';
+import { myContext } from 'components/Context';
 
 // interface FormData {
 //   postTitle: string;
@@ -116,13 +116,13 @@ export function CreatePost(): JSX.Element {
 
   return (
     <form method="post" onSubmit={handleSubmit}>
-      <label>
+      {/* <label>
         Title:
         <input
           name="postTitle"
           defaultValue="Title"
           value={title}
-          onChange={handleInputChange.bind(null, setFormData, formData)}
+          // onChange={handleInputChange.bind(null, setFormData, formData)}
         />
       </label>
       <label>
@@ -132,8 +132,8 @@ export function CreatePost(): JSX.Element {
           placeholder="deep thoughts"
           rows={4}
           cols={40}
-          value={formData.postContent}
-          onChange={handleInputChange.bind(null, setFormData, formData)}
+          // value={formData.postContent}
+          // onChange={handleInputChange.bind(null, setFormData, formData)}
         />
       </label>
       <label>
@@ -144,7 +144,7 @@ export function CreatePost(): JSX.Element {
           multiple
           required
           value={formData.tags}
-          onChange={handleSelectChange.bind(null, setFormData, formData)}
+          // onChange={handleSelectChange.bind(null, setFormData, formData)}
         >
           <option value="travel">Travel</option>
           <option value="cooking">Cooking</option>
@@ -157,7 +157,7 @@ export function CreatePost(): JSX.Element {
       <p className="tagDisplay"></p>
       <hr />
       <button onClick={handleCancel}>Cancel</button>
-      <button type="submit">Submit</button>
+      <button type="submit">Submit</button> */}
     </form>
   );
 }
