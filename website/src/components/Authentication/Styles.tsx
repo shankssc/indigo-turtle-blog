@@ -32,16 +32,17 @@ export const Form = styled(FormikForm)`
 export const StyledCardHeader = styled(CardHeader)({
   textAlign: 'center', // Align text to center
   margin: '20px 0', // Add margin to top and bottom
-  color: '#FFFFFF', // Change text color
+  color: '#67F3BF', // Change text color
 });
 
 export const StyledTextField = styled(TextField)<{ theme: Theme }>`
   && {
     margin-bottom: ${({ theme }) => theme.spacing(2)};
-    background-color: #18b467;
+    background-color: #67F3BF;
     border-radius: 15px;
     width: 300px;
     outline: none !important;
+    color: #0A8541;
   }
 `;
 
@@ -59,7 +60,7 @@ export const StyledButton = styled(Button)<{ theme: Theme }>`
 
 export const Card = styled(MuiCard)`
   border-radius: 40px;
-  background-color: #39e399;
+  background-color: #0A8541;
   padding: 3px;
   width: 400px;
 `;
@@ -69,7 +70,7 @@ export const StyledText = styled(Link)<{ theme: Theme }>`
     text-align: center;
     margin-top: ${({ theme }) => theme.spacing(3)};
     margin-bottom: ${({ theme }) => theme.spacing(3)};
-    color: #c7c0cc;
+    color: #67F3BF;
     font-size: 15px;
   }
 `;
