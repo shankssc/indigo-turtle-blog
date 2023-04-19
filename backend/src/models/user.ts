@@ -34,7 +34,9 @@ export const createUser = async (user: User): Promise<void> => {
 //Retrieve a user by their id
 export const getUserById = async (uid: string): Promise<User | null> => {
   const db = getDatabase(dbapp);
-  const userRef = ref(db, `users/${uid}`);
+  console.log(uid);
+  //const userRef = ref(db, `users/${uid}`);
+  const userRef = ref(db, 'users/' + encodeURIComponent(uid));
   const snapshot = await get(userRef);
   const userData = snapshot.val();
   if (userData) {

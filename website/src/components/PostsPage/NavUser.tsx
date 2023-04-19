@@ -35,7 +35,7 @@ export const NavUser = ({
   const logout = async (): Promise<void> => {
     try {
       await axios.get('http://localhost:4000/logout', { withCredentials: true });
-      navigate('/');
+      // navigate('/');
     } catch (err) {
       console.error(err);
     }
@@ -97,7 +97,7 @@ export const NavUser = ({
           Accounts
         </Button>
       </Grid>
-      <Button onClick={()=> logout}>
+      <Button onClick={(logout)=> navigate('/')}>
         <Typography color="hsla(0, 100%, 0%, 0.5)">Sign out</Typography>
       </Button>
     </Grid>
