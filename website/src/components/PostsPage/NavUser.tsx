@@ -5,14 +5,14 @@ import { myContext } from 'components/Context';
 import axios, { AxiosResponse } from 'axios';
 
 const handleMyPost = (
-  userUID: string,
+  username: string,
   posts: Post[],
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>
 ): void => {
   const usersPosts: Post[] = [];
-  posts.forEach((element) => {
-    if (element.uid === userUID) {
-      usersPosts.push(element);
+  posts.forEach((post) => {
+    if (post.author === username) {
+      usersPosts.push(post);
     }
   });
   setPosts(usersPosts);
@@ -70,8 +70,8 @@ export const NavUser = ({
           variant="contained"
           className="my-posts-button"
           onClick={(e) =>
-            ctx.uid !== undefined
-              ? handleMyPost(ctx.uid, posts, setPosts)
+            ctx.username !== undefined
+              ? handleMyPost(ctx.username, posts, setPosts)
               : console.error('User has not made any post')
           }
           color="secondary"

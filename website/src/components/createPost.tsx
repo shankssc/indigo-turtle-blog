@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from 'components/Context';
 import {
   Box,
@@ -14,111 +14,6 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-// interface FormData {
-//   postTitle: string;
-//   postContent: string;
-//   tags: string[];
-// }
-
-// const initialFormData: FormData = {
-//   postTitle: '',
-//   postContent: '',
-//   tags: [],
-// };
-
-// const handleInputChange = (
-//   setFormData: React.Dispatch<React.SetStateAction<FormData>>,
-//   formData: FormData,
-//   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-// ): void => {
-//   const { name, value } = event.target;
-//   setFormData({ ...formData, [name]: value });
-// };
-
-// const handleSelectChange = (
-//   setFormData: React.Dispatch<React.SetStateAction<FormData>>,
-//   formData: FormData,
-//   event: React.ChangeEvent<HTMLSelectElement>
-// ): void => {
-//   const options = event.target.options;
-//   const selectedOptions: string[] = [];
-//   for (let i = 0; i < options.length; i++) {
-//     if (options[i].selected) {
-//       selectedOptions.push(options[i].value);
-//     }
-//   }
-//   setFormData({ ...formData, tags: selectedOptions });
-// };
-
-// function CreatePost(): JSX.Element {
-//   const [formData, setFormData] = useState<FormData>(initialFormData);
-
-//   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-//     // Prevent the browser from reloading the page
-//     event.preventDefault();
-
-//     // Read the form data
-//     const form = event.target as HTMLFormElement;
-//     const formData = new FormData(form);
-
-//     // pass formData as a fetch body directly:
-//     // fetch('/some-api', { method: form.method, body: formData }): void;
-//   }
-
-//   function handleCancel(): void {
-//     // redirect to posts page
-//   }
-
-//   return (
-//     <form method="post" onSubmit={handleSubmit}>
-//       <label>
-//         Title:
-//         <input
-//           name="postTitle"
-//           defaultValue="Title"
-//           value={formData.postTitle}
-//           onChange={handleInputChange.bind(null, setFormData, formData)}
-//         />
-//       </label>
-//       <label>
-//         Edit your post:
-//         <textarea
-//           name="postContent"
-//           placeholder="deep thoughts"
-//           rows={4}
-//           cols={40}
-//           value={formData.postContent}
-//           onChange={handleInputChange.bind(null, setFormData, formData)}
-//         />
-//       </label>
-//       <label>
-//         Select post tags:
-//         <select
-//           name="tags"
-//           id="tags"
-//           multiple
-//           required
-//           value={formData.tags}
-//           onChange={handleSelectChange.bind(null, setFormData, formData)}
-//         >
-//           <option value="travel">Travel</option>
-//           <option value="cooking">Cooking</option>
-//           <option value="hobbies">Hobbies</option>
-//           <option value="music">Music</option>
-//           <option value="career">Career</option>
-//           <option value="programming">Programming</option>
-//         </select>
-//       </label>
-//       <p className="tagDisplay"></p>
-//       <hr />
-//       <button onClick={handleCancel}>Cancel</button>
-//       <button type="submit">Submit</button>
-//     </form>
-//   );
-// }
-
-// export { CreatePost };
 
 const CENTER_STYLE = {
   display: 'flex',
@@ -137,6 +32,10 @@ export function CreatePost(): JSX.Element {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 
+  useEffect(() => {
+    if (ctx.username === undefined) navigate('/');
+  });
+
   const handleTitle = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => setTitle(e.target.value);
@@ -147,7 +46,7 @@ export function CreatePost(): JSX.Element {
 
   const handleTags = (e: SelectChangeEvent<string[]>): void => {
     const value = e.target.value;
-    setTags(typeof value === 'string' ? value.split(',') : value);
+    setTags(typeof value === 'string' ? value.split(', ') : value);
   };
 
   const handleSubmit = (
@@ -155,9 +54,19 @@ export function CreatePost(): JSX.Element {
   ): void => {
     // TODO: Please create an object, post, with author, title, content and tags.
     // TODO: Please check if it works or not.
-    // const post = {
-    // }
-    // axios.post("https://localhost:4000/createpost", post);
+    if (ctx.username === undefined) navigate('/');
+
+    const post = {
+      author: ctx.username as string,
+      title,
+      content,
+      tags,
+    };
+
+    axios
+      .post('http://localhost:4000/createposts', post)
+      .catch((error) => console.error(error));
+    navigate('/postspage');
   };
 
   return (
@@ -165,6 +74,7 @@ export function CreatePost(): JSX.Element {
       container
       direction="column"
       justifyContent="center"
+      alignItems="stretch"
       style={{
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -199,8 +109,10 @@ export function CreatePost(): JSX.Element {
           <Typography paddingRight={2}>Content</Typography>
           <TextField
             variant="standard"
+            multiline
             defaultValue={content}
             onChange={handleContent}
+            sx={{ width: '45vw' }}
           ></TextField>
         </Box>
       </Grid>
