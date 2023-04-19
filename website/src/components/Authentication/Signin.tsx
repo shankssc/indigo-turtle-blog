@@ -28,7 +28,6 @@ export const AuthForm = ({
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }): JSX.Element => {
   const ctx = useContext(myContext);
-  console.log('current context is ', ctx);
   const navigate = useNavigate();
   const instance = axios.create({
     baseURL: 'http://localhost:4000',
@@ -41,7 +40,6 @@ export const AuthForm = ({
         username: values.username,
         password: values.password,
       });
-      console.log('Got response:', response.data);
       // FIXME: NEED TO SET CONTEXT HERE
       setUser(response.data);
       navigate('/postspage');
