@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express';
 import session, { SessionOptions } from 'express-session';
-import exphbs from 'express-handlebars';
 import passport from 'passport';
-import { getDatabase, ref, set } from 'firebase/database';
+import passportlocal from 'passport-local';
+import { compare } from 'bcrypt';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 import {
   User,
   createUser,
@@ -11,19 +14,11 @@ import {
   updatePassword,
 } from './models/user';
 import {
-  Post,
   createPost,
   deletePost,
-  getPost,
-  isUserAuthorized,
   updatePostContent,
   getAllPosts,
 } from './models/post';
-import passportlocal from 'passport-local';
-import * as bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json());
@@ -54,7 +49,7 @@ passport.use(
     }
 
     try {
-      const matchRes = await bcrypt.compare(password, user.password);
+      const matchRes = await compare(password, user.password);
 
       if (matchRes) {
         return done(null, user);
@@ -67,7 +62,7 @@ passport.use(
   })
 );
 
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
