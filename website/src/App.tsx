@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { RegisterForm } from 'components/Authentication/Signup';
-import { AccountPage } from 'components/AccountPage';
+import { AccountPage } from 'components/AccountPage/AccountPage';
 import { AuthForm } from 'components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PostsPage } from 'components/PostsPage/PostsPage';
