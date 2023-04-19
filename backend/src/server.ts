@@ -3,8 +3,14 @@ import session, { SessionOptions } from 'express-session';
 import exphbs from 'express-handlebars';
 import passport from 'passport';
 import { getDatabase, ref, set } from "firebase/database";
-import { User,createUser,getUserById, getUserByUsername } from './models/user';
-import {Post,createPost, deletePost, getPost, isUserAuthorized, updatePostContent, getAllPosts} from './models/post';
+import { User,createUser,getUserById, getUserByUsername, updatePassword } from './models/user';
+import {Post,
+        createPost,
+        deletePost,
+        getPost,
+        isUserAuthorized,
+        updatePostContent,
+        getAllPosts} from './models/post';
 import passportlocal from 'passport-local';
 import * as bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
@@ -165,6 +171,21 @@ app.post('/createposts', async (req: Request, res: Response) => {
       res.status(500).json({ error: 'An error occurred while updating the post content.' });
     }
   });
+
+  app.patch('/user/updatePassword/:userId', async (req,res) => {
+    const {userId} = req.params;
+    const {activeUser,newPassword} = req.body;
+
+
+    try {
+      await updatePassword(userId,activeUser,newPassword);
+      res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while updating the user password' });
+    }
+
+  }) 
 
   app.listen(4000, () => {
     console.log('Server started successfully');
