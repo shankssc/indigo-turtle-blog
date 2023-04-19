@@ -90,6 +90,7 @@ export const RegisterForm = ({
               <StyledText theme={theme}>
                 Already a User?{' '}
                 <Button
+                  style={{color:"#67F3BF"}}
                   onClick={(event) => {
                     event.preventDefault();
                     navigate('/login');

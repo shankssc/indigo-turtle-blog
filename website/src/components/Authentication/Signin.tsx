@@ -65,6 +65,7 @@ export const AuthForm = ({
               <StyledText theme={theme}>
                 Not a User?{' '}
                 <Button
+                  style={{color:"#67F3BF"}}
                   onClick={(event) => {
                     event.preventDefault();
                     navigate('/register');
