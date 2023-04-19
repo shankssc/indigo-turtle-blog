@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import { Box, Button } from '@mui/material';
+import React, { useState } from 'react';
 
 function Popup(content: JSX.Element, btnText: string): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <button
+      <Button
         className="btn"
         onClick={(): void => {
           setIsOpen(!isOpen);
         }}
       >
-        {isOpen ? "Close" : btnText}
-      </button>
+        {isOpen ? 'Close' : btnText}
+      </Button>
 
       {isOpen && (
-        <div>
-          <div> {content} </div>
-        </div>
+        <Box>
+          <Box> {content} </Box>
+        </Box>
       )}
     </>
   );
 }
-export default  Popup ;
+export default Popup;
