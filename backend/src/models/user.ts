@@ -85,4 +85,22 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
   return user;
 }
 
+export const updatePassword = async (uid:string,activeUser:string, newPassword: string): Promise<void | null> => {
+  const db = getDatabase(dbapp);
+  const userRef = ref(db, 'users/' + encodeURIComponent(uid));
+
+  const snapshot = await get(userRef);
+
+  if (snapshot.exists() && snapshot.val().username === activeUser) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await update(userRef,{
+      password:hashedPassword,
+    });
+  }
+
+  else {
+    return null;
+  }
+}
+
 
