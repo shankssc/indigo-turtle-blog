@@ -62,7 +62,6 @@ export const RegisterForm = ({
         email: values.email,
         password: values.password,
       });
-      console.log(response.data);
       setUser(response.data as User);
       navigate('/login');
     } catch (error) {

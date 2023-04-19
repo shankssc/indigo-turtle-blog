@@ -29,8 +29,6 @@ function ChangePasswordForm(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  console.log(`/user/updatePassword/${ctx.uid as string}`);
-
   // submits password change
   const handleSubmitPassword = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();

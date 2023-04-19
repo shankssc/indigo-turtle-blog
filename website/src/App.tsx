@@ -5,7 +5,7 @@ import { AuthForm } from 'components/Authentication/Signin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PostsPage } from 'components/PostsPage/PostsPage';
 import Context, { myContext } from 'components/Context';
-import { CreatePost } from 'components/createPost';
+import { CreatePost } from 'components/CreatePost';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 const colorTheme = createTheme({
@@ -30,8 +30,7 @@ const colorTheme = createTheme({
 
 function App(): JSX.Element {
   const ctx = useContext(myContext);
-  const [user, setUser] = useState<User>();
-  console.log('current context is ', ctx);
+  const [user, setUser] = useState<User | undefined>();
   return (
     <div className="App">
       <ThemeProvider theme={colorTheme}>
@@ -40,7 +39,10 @@ function App(): JSX.Element {
             <Routes>
               <Route path="/" element={<RegisterForm setUser={setUser} />} />{' '}
               <Route path="/account" element={<AccountPage />} />
-              <Route path="/postspage" element={<PostsPage />} />
+              <Route
+                path="/postspage"
+                element={<PostsPage setUser={setUser} />}
+              />
               <Route
                 path="/register"
                 element={<RegisterForm setUser={setUser} />}

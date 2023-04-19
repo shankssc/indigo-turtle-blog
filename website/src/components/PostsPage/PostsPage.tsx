@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useRef,
+  SetStateAction,
+} from 'react';
 
 import { fetchPosts } from 'utils/fetchPosts';
 import { Grid, useTheme } from '@mui/material';
@@ -10,10 +16,13 @@ import { NavGuest } from './NavGuest';
 import { PostOverlay } from './PostOverlay';
 import { createPosts } from './createPosts';
 
-export function PostsPage(): JSX.Element {
+export function PostsPage({
+  setUser,
+}: {
+  setUser: React.Dispatch<SetStateAction<User | undefined>>;
+}): JSX.Element {
   const theme = useTheme();
   const ctx = useContext(myContext);
-  console.log('Context inside: ', ctx);
 
   const [pageN, setPageN] = useState(0);
   const [posts, setPosts] = useState<Post[]>([]);
@@ -42,6 +51,7 @@ export function PostsPage(): JSX.Element {
           username={ctx.username}
           posts={posts}
           setPosts={setPosts}
+          setUser={setUser}
         />
       ) : (
         <NavGuest navigate={navigate} />
