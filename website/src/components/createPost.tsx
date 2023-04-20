@@ -64,7 +64,7 @@ export function CreatePost(): JSX.Element {
     };
 
     axios
-      .post('http://localhost:4000/createposts', post)
+      .post('http://localhost:4000/createposts', post, {withCredentials: true})
       .catch((error) => console.error(error));
     navigate('/postspage');
   };
