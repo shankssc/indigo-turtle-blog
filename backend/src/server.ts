@@ -141,10 +141,10 @@ app.post('/createposts', async (req: Request, res: Response) => {
   try {
     const { author, title, content, tags } = req?.body;
 
-    // Create a new user object
+    // Create a new post object
     const newPost = { author, title, content, tags };
 
-    // Add the new user to the database
+    // Add the new post to the database
     await createPost(newPost);
     res.status(201).json({ message: 'Post creation successful' });
   } catch (error) {
@@ -153,6 +153,7 @@ app.post('/createposts', async (req: Request, res: Response) => {
   }
 });
 
+// Deleting a post
 app.delete('/posts/:postId', async (req, res) => {
   const postId = req.params.postId;
   try {
